@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## 💡 Sobre o Projeto
 
-## Getting Started
+O **Brasas burger** é um sistema web que permite que clientes de Tacaratu acessem o cardápio digital do Brasas e realizem seus pedidos ou tirem dúvidas com o chatbot.
 
-First, run the development server:
+### Problemática
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+A empresa encontra muitos problemas no seus sistema atual, como ele não respondendo da maneira que deveria, problemas no gateway de pagamento, acúmulo de função para os colaboradores.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+A plataforma do cardápio digital visa preencher essas lacunas, oferecendo um espaço para que os clientes possam realizar seus pedidos de maneira simples e dinâmica, com poucos passos e tendo uma plataforma adaptada para as suas necessidades.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Tecnologias usadas
 
-## Learn More
+- [Next.js](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🧩 Componentes 
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### QuantityAction
+Componente de controle de quantidade com botões de "+" e "-", e um ícone de lixeira quando a quantidade está em 1.
 
-## Deploy on Vercel
+Usa: useState, react-icons
+Finalidade: Permite ao usuário alterar a quantidade de um item (ex: em um carrinho).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Exemplo de uso: (futuramente vai receber 2 props referente a quantidade)
+import { QuantityAction } from '@/components/QuantityAction'
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+<QuantityAction />
+
+### Button
+Botão reutilizável com texto customizável.
+
+Props:
+- label: string – Texto exibido no botão
+- onClick?: () => void – Função executada ao clicar
+
+### SectionTitle
+Título de seção com ação à direita (como "Ver tudo").
+
+Props:
+- title: string – Texto principal (título da seção)
+- onClick: () => void – Função chamada ao clicar em "Ver tudo"
