@@ -1,25 +1,51 @@
+'use client'
+
 import { Button } from "@/components/ui/Button"
 import { Input } from "@/components/ui/Input"
 import Link from "next/link"
 
+// Forms dependecies
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
+import PhoneInput from "@/components/ui/PhoneInput"
+
+
 const page = () => {
+
+    const formSchema = z.object({
+        name: z.string().min(3, "O nome é obrigatório"),
+        tel: z
+            .string()
+            .min(15, "Telefone incompleto")
+            .regex(/^\(\d{2}\) 9 \d{4}-\d{4}$/, "Telefone inválido")
+    })
+
+    const { control, register, handleSubmit, formState: { errors } } = useForm({
+        resolver: zodResolver(formSchema)
+    })
+
     return(
         <div className="pt-10 px-6">
             <img src="logo.svg" alt="Logo do Brasas" className="w-[80%] mx-auto"/>
 
-            <p className="text-center mt-7 mb-6 ">
+            <p className="text-center mt-7 mb-6 text-primary">
                 Peça em poucos segundos! Só precisamos do seu número para começar!
             </p>
 
-            <form className="flex flex-col gap-6">
+            <form onSubmit={handleSubmit((data) => console.log(data))} className="flex flex-col gap-6">
                 <Input 
                     type="text"
                     placeholder="Nome"
+                    error={!!errors.name}
+                    {...register("name")}
                 />
+                {errors.name && <p className="text-red-500 text-sm -mt-5">{errors.name.message}</p>}
 
-                <Input 
-                    type="number"
-                    placeholder="Telefone: (81) 9 9999-9999"
+                <PhoneInput
+                    name="tel"
+                    control={control}
+                    errors={errors}
                 />
 
                 <div className="flex justify-center items-center">
