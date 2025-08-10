@@ -19,7 +19,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Brasas burger",
+  title: "Brasas Burger",
   icons: {
     icon: "logo.svg",
   },
