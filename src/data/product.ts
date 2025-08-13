@@ -8,7 +8,7 @@ export const products: Product[] = [
     categoryId: 1,
     ingredients: "Molho de tomate, mussarela, manjericão",
     price: 39.9,
-    image: "sertão-brasas.svg",
+    image: "/sertão-brasas.svg",
     available: true
   },
   {
