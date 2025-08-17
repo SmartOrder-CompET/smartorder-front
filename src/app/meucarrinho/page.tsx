@@ -34,8 +34,12 @@ const page = () => {
                         <div className="text-lg">90 conto</div>
                     </div>
 
-                    <div className="flex justify-center mt-3">
+                    <div className="flex flex-col justify-center mt-3 w-[60%] gap-3 mx-auto">
                         <Button label="Finalizar Compra"/>
+
+                        <button className="bg-[#181717] text-center font-bold py-1 px-3 rounded-full border border-[#35F300]">
+                            Finalizar por whatsapp
+                        </button>
                     </div>
                 </div>
             </main>
