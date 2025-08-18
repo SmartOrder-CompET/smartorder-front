@@ -1,10 +1,32 @@
+'use client'
+
 import { Header } from "@/components/Header"
 import { ProductCart } from "@/components/ProductCart"
 import { Title } from "@/components/Title"
 import { Button } from "@/components/ui/Button"
-import { products } from "@/data/product"
+import { useCart } from "@/contexts/CartContext"
+import { formatPrice } from "@/utils/formatters"
 
 const page = () => {
+
+    const { state, dispatch } = useCart();
+
+    const subtotal = state.items.reduce((acc, item) => {
+        return acc + item.product.price * item.quantity;
+    }, 0);
+
+    if(state.items.length === 0){
+        return(
+            <div className="h-screen">
+                <Header />
+
+                <main className="w-full h-full flex justify-center items-center">
+                    Carrinho vazio!
+                </main>
+            </div>
+        )
+    }
+
     return(
         <div>
             <Header />
@@ -13,8 +35,8 @@ const page = () => {
                 <Title text="Meu Carrinho"/>
 
                 <div className="flex flex-col gap-4 overflow-y-auto h-[50vh]">
-                    {products.map((product) => (
-                        <ProductCart key={product.id} product={product} />
+                    {state.items.map((item, index) => (
+                        <ProductCart key={`${item.product.id}-${index}`} cartItem={item} />
                     ))}
                 </div>
 
@@ -23,15 +45,15 @@ const page = () => {
                 <div className="mx-2 flex flex-col gap-1">
                     <div className="flex items-center justify-between">
                         <h6>Subtotal</h6>
-                        <div>89 conto</div>
+                        <div>{formatPrice(subtotal)}</div>
                     </div>
                     <div className="flex items-center justify-between">
                         <h6>Taxa de Entrega</h6>
-                        <div>1 conto</div>
+                        <div>{formatPrice(0)}</div>
                     </div>
                     <div className="flex items-center justify-between">
                         <h6 className="text-lg text-primary">Total</h6>
-                        <div className="text-lg">90 conto</div>
+                        <div className="text-lg">{formatPrice(subtotal)}</div>
                     </div>
 
                     <div className="flex flex-col justify-center mt-3 w-[60%] gap-3 mx-auto">

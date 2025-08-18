@@ -6,5 +6,6 @@ export type Product = {
     ingredients: string,
     price: number,
     image?: string,
-    available: boolean
+    available: boolean,
+    quantity: number
 }
