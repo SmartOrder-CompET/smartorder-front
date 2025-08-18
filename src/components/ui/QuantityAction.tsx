@@ -5,15 +5,23 @@ import { LuMinus } from "react-icons/lu";
 import { FiPlus } from "react-icons/fi";
 import { CiTrash } from "react-icons/ci";
 
-export const QuantityAction = () => {
+type Props = {
+    value: number,
+    setValue: (a: number) => void,
+    inCart?: boolean
+}
 
-    const [quantity, setQuantity] = useState(2)
+export const QuantityAction = ({ value, setValue, inCart }: Props) => {
 
     const minusQt = () => {
-        if(quantity > 1){
-            setQuantity(quantity - 1)
+        if(value > 1 && !inCart){
+            setValue(value - 1)
+        } else if (inCart){
+            setValue(value - 1)
         }
     }
+
+    
 
     return(
         <div className="flex justify-center items-center">
@@ -22,13 +30,14 @@ export const QuantityAction = () => {
                     className="bg-white rounded-full p-2 text-black cursor-pointer hover:opacity-75"
                     onClick={minusQt}
                 >
-                    {quantity === 1 && <CiTrash />}
-                    {quantity > 1 && <LuMinus />}
+                    {value === 1 && inCart && <CiTrash />}
+                    {value > 1 && inCart && <LuMinus />}
+                    {value > 0 && !inCart && <LuMinus />}
                 </button>
-                <h6>{quantity}</h6>
+                <h6>{value}</h6>
                 <button
                     className="bg-primary rounded-full p-2 cursor-pointer hover:opacity-75"
-                    onClick={() => setQuantity(quantity + 1)}
+                    onClick={() => setValue(value + 1)}
                 >
                     <FiPlus />
                 </button>
