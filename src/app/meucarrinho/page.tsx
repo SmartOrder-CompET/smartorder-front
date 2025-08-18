@@ -11,6 +11,20 @@ const page = () => {
 
     const { state, dispatch } = useCart();
 
+    const message = [
+      "Olá, quero fazer um pedido e esses são os itens:",
+      ...state.items.map(item => `${item.quantity}x ${item.product.name}`)
+    ].join("\n");
+
+    let phoneNumber = '558194020566'
+
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+    const handleClick = () => {
+        window.open(whatsappUrl, '_blank');
+    };
+
     const subtotal = state.items.reduce((acc, item) => {
         return acc + item.product.price * item.quantity;
     }, 0);
@@ -59,7 +73,10 @@ const page = () => {
                     <div className="flex flex-col justify-center mt-3 w-[60%] gap-3 mx-auto">
                         <Button label="Finalizar Compra"/>
 
-                        <button className="bg-[#181717] text-center font-bold py-1 px-3 rounded-full border border-[#35F300]">
+                        <button 
+                            className="bg-[#181717] text-center font-bold py-1 px-3 rounded-full border border-[#35F300]"
+                            onClick={handleClick}
+                        >
                             Finalizar por whatsapp
                         </button>
                     </div>
