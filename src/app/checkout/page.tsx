@@ -23,6 +23,20 @@ export default function CheckoutPage() {
         return acc + item.product.price * item.quantity;
     }, 0);
 
+    let total = 2
+
+    const handleCheckOut = async () => {
+        const res = await fetch("/api/create-payment", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ subtotal }),
+        });
+
+        const data = await res.json();
+        console.log(data)
+
+        router.push(`/pagamento/${data.id}`)
+    }
 
     return (
         <div>
@@ -96,7 +110,7 @@ export default function CheckoutPage() {
                 </div>
 
                 <div className="w-full flex justify-center items-center mt-5">
-                    <Button label="Confirmar compra"/>
+                    <Button  label="Confirmar compra" onClick={handleCheckOut}/>
                 </div>
             </main>
         </div>
