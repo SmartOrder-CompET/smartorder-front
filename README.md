@@ -8,6 +8,8 @@ A empresa encontra muitos problemas no seus sistema atual, como ele não respond
 
 A plataforma do cardápio digital visa preencher essas lacunas, oferecendo um espaço para que os clientes possam realizar seus pedidos de maneira simples e dinâmica, com poucos passos e tendo uma plataforma adaptada para as suas necessidades.
 
+<img width="370" height="808" alt="image" src="https://github.com/user-attachments/assets/e6614c5a-438c-4528-b56d-b41da2e200e1" />
+
 ---
 
 ## 🛠️ Tecnologias usadas
@@ -18,29 +20,23 @@ A plataforma do cardápio digital visa preencher essas lacunas, oferecendo um es
 
 ---
 
-## 🧩 Componentes 
+## 🧩 Requisitos para rodar o projeto
 
-### QuantityAction
-Componente de controle de quantidade com botões de "+" e "-", e um ícone de lixeira quando a quantidade está em 1.
+- [Node.js](https://www.nodejs.tech/pt-br)
 
-Usa: useState, react-icons
-Finalidade: Permite ao usuário alterar a quantidade de um item (ex: em um carrinho).
+### Como rodar na minha maquina?
 
-Exemplo de uso: (futuramente vai receber 2 props referente a quantidade)
-import { QuantityAction } from '@/components/QuantityAction'
+- clone o projeto
+- rode `npm install`
+- rode `npm run dev`
+- Pronto!
 
-<QuantityAction />
+## Estrutura do projeto
 
-### Button
-Botão reutilizável com texto customizável.
-
-Props:
-- label: string – Texto exibido no botão
-- onClick?: () => void – Função executada ao clicar
-
-### SectionTitle
-Título de seção com ação à direita (como "Ver tudo").
-
-Props:
-- title: string – Texto principal (título da seção)
-- onClick: () => void – Função chamada ao clicar em "Ver tudo"
+- `./src` pasta fonte, onde vai conter todas as pastas com os códigos do projeto
+- `./src/app` pasta responsável por organizar todas as rotas/páginas do nosso sistema
+- `./src/components` são todos os fragmentos essencias de interface do projeto como Título, botão, Inputs e etc.
+- `./src/contexts` são as varíaveis globais, que podem ser acessadas em qualquer parte do sistema como dados do carrinho
+- `./src/reducers` contém os reducers que atualizam os estados do context, como remover ou adicionar itens no carrinho
+- `./src/types` Contém todas as tipagens do sistema.
+- `./src/utils` contém funções úteis que vão ser usadas no projeto como função para formatar número em preço em real
