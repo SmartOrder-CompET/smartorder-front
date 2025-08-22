@@ -12,15 +12,16 @@ export const Header = () => {
 
     return (
         <>
-            <header className="fixed top-0 left-0 z-50 flex h-18 w-full justify-between items-center px-4 md:px-8 py-2 bg-[#100A06] ">
-                <div className="flex items-center">
-                    <a
-                        href="/"
-                        className="p-3 hover:bg-[#222222] rounded-full transition-colors"
-                    >
-                        <User size={20} className="md:w-6 md:h-6" />
-                    </a>
-                </div>
+            <header className="fixed top-0 left-0 z-50 flex h-18 w-full justify-between items-center px-4 md:px-8 py-2 bg-[#100A06]">
+
+                <Link
+                    href={path === '/perfil' ? '/' : '/perfil'}
+                    className={`flex items-center p-3 rounded-full relative ${
+                        path === '/perfil' ? 'bg-primary' : 'bg-transparent'
+                    }`}
+                >
+                    <User size={20} className="md:w-6 md:h-6" />
+                </Link>
 
                 <Link href={'/'} className="flex items-center mt-2">
                     <img
@@ -30,9 +31,12 @@ export const Header = () => {
                     />
                 </Link>
 
+
                 <Link
                     href={path === '/meucarrinho' ? '/' : '/meucarrinho'}
-                    className={`flex items-center p-3 rounded-full relative ${path === '/meucarrinho' ? 'bg-primary' : 'bg-transparent'}`}
+                    className={`flex items-center p-3 rounded-full relative ${
+                        path === '/meucarrinho' ? 'bg-primary' : 'bg-transparent'
+                    }`}
                 >
                     <ShoppingCart size={20} />
                     {state.items.length > 0 && path !== '/meucarrinho' && (

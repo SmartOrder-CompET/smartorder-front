@@ -1,42 +1,84 @@
 'use client'
 
-import { useState } from 'react'
-import { Home, Phone, List } from 'lucide-react' // substitua pelos ícones que quiser
+import { usePathname } from 'next/navigation'
+import Link from 'next/link'
+import { useCart } from '@/contexts/CartContext'
 
 export const Navbar = () => {
-  const [active, setActive] = useState('cardapio')
+  const path = usePathname()
+  const { state } = useCart() // pega o estado do carrinho
+
+  // Monta a mensagem de WhatsApp com os itens do carrinho
+  const message = state.items.length > 0
+    ? [
+        "Olá, quero fazer um pedido e esses são os itens:",
+        ...state.items.map(item => `${item.quantity}x ${item.product.name}`)
+      ].join("\n")
+    : "Olá, quero fazer um pedido."
+
+  const phoneNumber = '558194020566'
+  const encodedMessage = encodeURIComponent(message)
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`
 
   const tabs = [
-    { name: 'cardapio', icon: Home },
-    { name: 'Whatsapp', icon: Phone },
-    { name: 'pedidos', icon: List },
+    { name: 'cardapio', src: '/cardapio.svg', href: '/' },
+    { name: 'whatsapp', src: '/whatsapp.svg', href: null },
+    { name: 'pedidos', src: '/pedidos.svg', href: '/pedidos' },
   ]
 
   return (
-    <nav className="fixed bottom-0 left-0 w-full bg-[#0E0701] text-white flex justify-around items-center h-20 border-t border-[#222] z-50">
+    <nav className="fixed bottom-0 left-0 w-full bg-[#181411] text-white flex justify-around items-center h-20 border-t border-[#222] z-50">
       {tabs.map((tab) => {
-        const Icon = tab.icon
-        const isActive = active === tab.name
-        return (
-          <button
-            key={tab.name}
-            onClick={() => setActive(tab.name)}
-            className="flex flex-col items-center justify-center relative focus:outline-none"
-          >
-            <Icon size={24} className={`${isActive ? 'text-[#D17719]' : 'text-gray-400'}`} />
-            <span className={`text-xs mt-1 ${isActive ? 'text-[#D17719]' : 'text-gray-400'}`}>
+        const isActive = path === tab.href // só aplica ativo para abas com href
+
+        const content = (
+          <>
+            <div className={`${tab.name === 'whatsapp' ? 'relative -top-8' : ''}`}>
+              <img
+                src={tab.src}
+                alt={tab.name}
+                className={`${
+                  tab.name === 'whatsapp' ? 'w-16 h-16 opacity-100' : 'w-9 h-9 opacity-100'
+                } ${isActive ? 'filter saturate-200 brightness-200' : 'opacity-50'}`}
+              />
+            </div>
+
+            <span
+              className={`text-xs ${
+                isActive ? 'text-[#C8C8C8]' : 'text-[#C8C8C8] opacity-50'
+              } ${tab.name === 'whatsapp' ? '-mt-6' : 'mt-1'}`}
+            >
               {tab.name.charAt(0).toUpperCase() + tab.name.slice(1)}
             </span>
 
-            {/* Indicador laranja */}
             {isActive && (
-              <span className="absolute -bottom-1 w-6 h-1 bg-[#D17719] rounded-full"></span>
+              <span className="absolute -bottom-3 w-10 h-1 bg-[#D17719] rounded-full"></span>
             )}
-          </button>
+          </>
         )
+
+        if (tab.href) {
+          return (
+            <Link
+              key={tab.name}
+              href={tab.href}
+              className="flex flex-col items-center justify-center relative focus:outline-none"
+            >
+              {content}
+            </Link>
+          )
+        } else {
+          return (
+            <button
+              key={tab.name}
+              onClick={() => window.open(whatsappUrl, '_blank')} // abre o WhatsApp
+              className="flex flex-col items-center justify-center relative focus:outline-none"
+            >
+              {content}
+            </button>
+          )
+        }
       })}
     </nav>
   )
 }
-
-
