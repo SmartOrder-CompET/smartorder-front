@@ -6,10 +6,12 @@ import { Title } from "@/components/Title"
 import { Button } from "@/components/ui/Button"
 import { useCart } from "@/contexts/CartContext"
 import { formatPrice } from "@/utils/formatters"
+import { useRouter } from "next/navigation"
 
 const page = () => {
 
     const { state, dispatch } = useCart();
+    const router = useRouter()
 
     const message = [
       "Olá, quero fazer um pedido e esses são os itens:",
@@ -71,10 +73,13 @@ const page = () => {
                     </div>
 
                     <div className="flex flex-col justify-center mt-3 w-[60%] gap-3 mx-auto">
-                        <Button label="Finalizar Compra"/>
+                        <Button 
+                            label="Finalizar"
+                            onClick={() => router.push('/checkout')}
+                        />
 
                         <button 
-                            className="bg-[#181717] text-center font-bold py-1 px-3 rounded-full border border-[#35F300]"
+                            className="bg-[#181717] text-center font-bold py-1 px-3 rounded-lg border border-[#35F300]"
                             onClick={handleClick}
                         >
                             Finalizar por whatsapp
