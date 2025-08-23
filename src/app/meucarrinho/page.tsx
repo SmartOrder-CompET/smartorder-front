@@ -1,6 +1,7 @@
 'use client'
 
 import { Header } from "@/components/Header"
+import { Navbar } from "@/components/Navbar";
 import { ProductCart } from "@/components/ProductCart"
 import { Title } from "@/components/Title"
 import { Button } from "@/components/ui/Button"
@@ -39,6 +40,7 @@ const page = () => {
                 <main className="w-full h-full flex justify-center items-center">
                     Carrinho vazio!
                 </main>
+                <Navbar />
             </div>
         )
     }
@@ -84,9 +86,10 @@ const page = () => {
                         >
                             Finalizar por whatsapp
                         </button>
-                    </div>
+                    </div>                    
                 </div>
             </main>
+            <Navbar />
         </div>
     )
 }
