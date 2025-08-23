@@ -9,7 +9,8 @@ export const products: Product[] = [
     ingredients: "Molho de tomate, mussarela, manjericão",
     price: 39.9,
     image: "/sertão-brasas.svg",
-    available: true
+    available: true,
+    quantity: 0
   },
   {
     id: 2,
@@ -19,7 +20,8 @@ export const products: Product[] = [
     ingredients: "Calabresa, cebola roxa, molho de tomate, mussarela",
     price: 42.5,
     image: "/barbecue-brasas.svg",
-    available: true
+    available: true,
+    quantity: 0
   },
   {
     id: 3,
@@ -28,8 +30,9 @@ export const products: Product[] = [
     categoryId: 2,
     ingredients: "Água gaseificada, açúcar, cafeína, corante",
     price: 6.0,
-    image: "https://via.placeholder.com/150",
-    available: true
+    image: "https://c8.alamy.com/comp/P40NG7/imagens-de-refrigerantes-em-lata-de-alumnio-refrigerante-sprite-e-sprite-zero-P40NG7.jpg",
+    available: true,
+    quantity: 0
   },
   {
     id: 4,
@@ -38,7 +41,8 @@ export const products: Product[] = [
     categoryId: 3,
     ingredients: "Chocolate, ovos, manteiga, açúcar, sorvete de baunilha",
     price: 18.0,
-    image: "https://via.placeholder.com/150",
-    available: false
+    image: "https://blog.biglar.com.br/wp-content/uploads/2023/03/iStock-514998178.jpg",
+    available: false,
+    quantity: 0
   }
 ];

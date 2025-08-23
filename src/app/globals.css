@@ -27,7 +27,12 @@
 }
 
 body {
-  background: #161616;
+  background: linear-gradient(#0E0701, #161616, #0E0701);
+  background-attachment: fixed; 
+  background-size: cover;  
+  background-repeat: no-repeat;
   color: #fff;
   font-family: Arial, Helvetica, sans-serif;
 }
+
+

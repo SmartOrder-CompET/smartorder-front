@@ -3,13 +3,17 @@
 import { Additional } from "@/components/Additional"
 import { Button } from "@/components/ui/Button"
 import { QuantityAction } from "@/components/ui/QuantityAction"
+import { useCart } from "@/contexts/CartContext"
 import { products } from "@/data/product"
 import { formatPrice } from "@/utils/formatters"
-import { usePathname } from "next/navigation"
-import { useState } from "react"
+import { usePathname, useRouter } from "next/navigation"
+import { useRef, useState } from "react"
 import { BsChatDotsFill } from "react-icons/bs";
 
 const page = () => {
+
+    const { dispatch } = useCart()
+    const router = useRouter()
 
     const meatPoints = [
         { id: "medium", label: "Carne ao ponto" },
@@ -18,10 +22,19 @@ const page = () => {
     ];
 
     const productId = usePathname().slice(9)
-
     const product = products.filter((item) => item.id === parseInt(productId));
+    const [quantity, setQuantity] = useState(1)
 
+    const observationRef = useRef<HTMLInputElement>(null)
     const [selectedPoint, setSelectedPoint] = useState<string>("");
+
+    const handleAddToCart = () => {
+        dispatch({
+            type: "ADD_PRODUCT",
+            payload: { product: product[0], observation: observationRef, quantity }, 
+        });
+        router.push('/')
+    };
 
     return(
         <main className="h-screen flex flex-col ">
@@ -94,14 +107,18 @@ const page = () => {
                     <input 
                         type="text" 
                         placeholder="Ex: Tirar o tomate"
+                        ref={observationRef}
                         className="border border-gray-300 outline-none p-3 rounded-md w-full mt-2 focus:border-primary"
                     />
                 </div>
 
                 <div className="mt-5 pb-5 flex justify-between w-full">
-                    <QuantityAction />
+                    <QuantityAction value={quantity} setValue={setQuantity}/>
 
-                    <Button label={'Adicionar '+ formatPrice(product[0].price) }/>
+                    <Button 
+                        label={'Adicionar '+ formatPrice(product[0].price * quantity) }
+                        onClick={handleAddToCart}
+                    />
                 </div>
             </div>
         </main>
