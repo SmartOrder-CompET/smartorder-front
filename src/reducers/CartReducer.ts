@@ -15,7 +15,7 @@ export const cartReducer = (state = cartInitialState, action: ReducerActionType)
             if (existingItemIndex >= 0) {
                 const updatedItems = state.items.map((item, index) => {
                     if (index === existingItemIndex) {
-                        return { ...item, quantity: item.quantity + 1 };
+                        return { ...item, quantity: item.quantity + action.payload.quantity };
                     }
                     return item;
                 });

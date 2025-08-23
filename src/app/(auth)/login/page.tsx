@@ -11,7 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import PhoneInput from "@/components/ui/PhoneInput"
 
 
-const page = () => {
+const Page = () => {
 
     const formSchema = z.object({
         name: z.string().min(3, "O nome é obrigatório"),
@@ -72,4 +72,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

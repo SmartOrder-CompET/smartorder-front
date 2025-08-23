@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from "react"
 import { LuMinus } from "react-icons/lu";
 import { FiPlus } from "react-icons/fi";
 import { CiTrash } from "react-icons/ci";

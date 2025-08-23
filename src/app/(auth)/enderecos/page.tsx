@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/Button"
 import { Input } from "@/components/ui/Input"
-import Link from "next/link"
 
 // Form dependecies
 import { useForm } from "react-hook-form"
@@ -11,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import CepInput from "@/components/ui/CepInput"
 import { useEffect } from "react"
 
-const page = () => {
+const Page = () => {
 
     const formSchema = z.object({
         street: z.string().min(3, "Digite uma rua válida"),
@@ -122,4 +121,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

@@ -6,15 +6,15 @@ import {  MapPin, Search } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Navbar } from "@/components/Navbar";
 
-const page = () => {
+const Page = () => {
   return (
     <div
-  className="max-w-md md:max-w-3xl lg:max-w-5xl mx-auto text-white min-h-screen pt-16">
+  className="max-w-md md:max-w-3xl lg:max-w-5xl mx-auto text-white min-h-screen">
 
       <Header />
 
       {/* Endereço */}
-      <div className="flex items-center justify-center h-8 mt-2 ">
+      <div className="flex items-center justify-center h-8 mt-2 pt-18">
         <MapPin size={16} color="#D17719" />
         <p className="text-xs pl-1 font-montserrat ">
           Av. José Estevão, 100, Carabeiras
@@ -72,4 +72,4 @@ const page = () => {
   
 };
 
-export default page;
+export default Page;

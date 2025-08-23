@@ -4,15 +4,16 @@ import { Header } from "@/components/Header";
 import StarRating from "@/components/Rating";
 import { useState } from "react";
 import Link from "next/link";
+import { Navbar } from "@/components/Navbar";
 
-const page = () => {
+const Page = () => {
   const [rating1, setRating1] = useState(0);
-  const [rating2, setRating2] = useState(4);
+  
   return (
-    <div className="max-w-md w-full md:max-w-3xl lg:max-w-5xl mx-auto  min-h-screen">
+    <div className="max-w-md  w-full md:max-w-3xl lg:max-w-5xl md:mx-auto  min-h-screen">
       <Header />
       {/* Titulo da pagina  */}
-      <div className="flex h-full items-center justify-center">
+      <div className="flex h-full items-center justify-center pt-18">
         <h1 className="text-xl font-bold mt-8 text-[var(--color-primary)]">
           MEUS PEDIDOS
         </h1>
@@ -217,7 +218,9 @@ const page = () => {
           </div>
         </div>
       </div>
+
+      <Navbar />
     </div>
   );
 };
-export default page;
+export default Page;

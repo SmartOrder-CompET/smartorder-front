@@ -4,8 +4,9 @@ import { Title } from "@/components/Title";
 import { formatPrice } from "@/utils/formatters";
 import React, { useEffect, useState } from "react";
 
-export default function page({ params }: { params: Promise<{ id: string }> }) {
+export default function Page({ params }: { params: Promise<{ id: string }> }) {
     const { id } = React.use(params);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [payment, setPayment] = useState<any>(null);
     const [copied, setCopied] = useState(false);
 

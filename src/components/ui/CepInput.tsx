@@ -4,6 +4,7 @@ import { Controller, Control, FieldErrors } from "react-hook-form"
 
 type CepInputProps = {
   name: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   control: Control<any>
   errors?: FieldErrors
   placeholder?: string

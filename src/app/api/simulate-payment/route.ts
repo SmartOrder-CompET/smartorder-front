@@ -22,6 +22,7 @@ export async function POST(req: Request) {
     const data = await response.json();
 
     return NextResponse.json(data);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     console.error(err);
     return NextResponse.json({ error: err.message }, { status: 500 });

@@ -6,9 +6,9 @@ import { useCart } from '@/contexts/CartContext'
 
 export const Navbar = () => {
   const path = usePathname()
-  const { state } = useCart() // pega o estado do carrinho
+  const { state } = useCart() 
 
-  // Monta a mensagem de WhatsApp com os itens do carrinho
+  
   const message = state.items.length > 0
     ? [
         "Olá, quero fazer um pedido e esses são os itens:",
@@ -29,7 +29,7 @@ export const Navbar = () => {
   return (
     <nav className="fixed bottom-0 left-0 w-full bg-[#181411] text-white flex justify-around items-center h-20 border-t border-[#222] z-50">
       {tabs.map((tab) => {
-        const isActive = path === tab.href // só aplica ativo para abas com href
+        const isActive = path === tab.href 
 
         const content = (
           <>
@@ -71,7 +71,7 @@ export const Navbar = () => {
           return (
             <button
               key={tab.name}
-              onClick={() => window.open(whatsappUrl, '_blank')} // abre o WhatsApp
+              onClick={() => window.open(whatsappUrl, '_blank')} 
               className="flex flex-col items-center justify-center relative focus:outline-none"
             >
               {content}

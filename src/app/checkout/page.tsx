@@ -1,6 +1,6 @@
 "use client";
 
-import { Header } from "@/components/Header";
+import { Title } from "@/components/Title";
 import { Button } from "@/components/ui/Button";
 import { useCart } from "@/contexts/CartContext";
 import { formatPrice } from "@/utils/formatters";
@@ -14,16 +14,16 @@ export default function CheckoutPage() {
     const [opcao, setOpcao] = useState("entrega");
     const [selected, setSelected] = useState("dinheiro");
 
-    // useEffect(() => {
-    //     if (state.items.length === 0) {
-    //         router.replace('/'); 
-    //     }
-    // }, [state.items, router]);
+    useEffect(() => {
+        if (state.items.length === 0) {
+            router.replace('/'); 
+        }
+    }, [state.items, router]);
+
     const subtotal = state.items.reduce((acc, item) => {
         return acc + item.product.price * item.quantity;
     }, 0);
 
-    let total = 2
 
     const handleCheckOut = async () => {
         const res = await fetch("/api/create-payment", {
@@ -40,11 +40,10 @@ export default function CheckoutPage() {
 
     return (
         <div>
-            <Header />
 
             <main className="mx-4 mt-8">
-                <h1 className="text-xl font-bold mb-4">Confirme seu pedido</h1>
-                {/* forma de retirada */}
+                <Title text="Confirme o pagamento"/>
+                
                 <div className="mb-4">
                     <label htmlFor="retirada" className="block font-semibold mb-1">
                         Forma de retirada
@@ -59,7 +58,7 @@ export default function CheckoutPage() {
                         <option value="retirar">Retirar no local</option>
                     </select>
                 </div>
-                {/* forma de pagamento */}
+                
                 <div className="flex flex-col gap-3 mb-4">
                     <h2 className="font-semibold mb-2">Selecione a forma de pagamento</h2>
 

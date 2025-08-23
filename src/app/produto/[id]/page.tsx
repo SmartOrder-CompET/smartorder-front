@@ -10,7 +10,7 @@ import { usePathname, useRouter } from "next/navigation"
 import { useRef, useState } from "react"
 import { BsChatDotsFill } from "react-icons/bs";
 
-const page = () => {
+const Page = () => {
 
     const { dispatch } = useCart()
     const router = useRouter()
@@ -125,4 +125,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

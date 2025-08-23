@@ -16,6 +16,7 @@ export async function GET(req: Request) {
     const payment = await new Payment(client).get({ id: Number(id) });
 
     return NextResponse.json(payment);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     console.error(err);
     return NextResponse.json({ error: err.message }, { status: 500 });

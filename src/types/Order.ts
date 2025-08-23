@@ -1,5 +1,4 @@
 import { Address } from "./Address"
-import { Product } from "./Product"
 
 type OrderProduct = {
     productId: number;

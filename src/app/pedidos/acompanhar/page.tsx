@@ -3,7 +3,7 @@ import { Header } from "@/components/Header";
 import { ArrowLeft, Check, Soup, Bike } from "lucide-react";
 import Link from "next/link";
 
-const page = () => {
+const Page = () => {
   return (
     <div className="max-w-md w-full md:max-w-3xl lg:max-w-5xl mx-auto  min-h-screen">
       <Header />
@@ -158,4 +158,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

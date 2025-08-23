@@ -5,9 +5,9 @@ import Link from "next/link";
 import StarRating from "@/components/Rating";
 import { useState } from "react";
 
-const page = () => {
+const Page = () => {
   const [rating1, setRating1] = useState(0);
-  const [rating2, setRating2] = useState(4);
+  
   return (
     <div className="max-w-md w-full md:max-w-3xl lg:max-w-5xl mx-auto  min-h-screen">
       <Header />
@@ -72,4 +72,4 @@ const page = () => {
     </div>
   );
 };
-export default page;
+export default Page;

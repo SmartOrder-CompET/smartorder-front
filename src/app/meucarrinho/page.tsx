@@ -9,9 +9,9 @@ import { useCart } from "@/contexts/CartContext"
 import { formatPrice } from "@/utils/formatters"
 import { useRouter } from "next/navigation"
 
-const page = () => {
+const Page = () => {
 
-    const { state, dispatch } = useCart();
+    const { state } = useCart();
     const router = useRouter()
 
     const message = [
@@ -19,7 +19,7 @@ const page = () => {
       ...state.items.map(item => `${item.quantity}x ${item.product.name}`)
     ].join("\n");
 
-    let phoneNumber = '558194020566'
+    const phoneNumber = '558194020566'
 
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
@@ -94,4 +94,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page
