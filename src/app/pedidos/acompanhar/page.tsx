@@ -7,7 +7,7 @@ const page = () => {
   return (
     <div className="max-w-md w-full md:max-w-3xl lg:max-w-5xl mx-auto  min-h-screen">
       <Header />
-      <div className="flex flex-col h-full items-center">
+      <div className="flex flex-col h-full items-center w-full px-4">
         <Link href={"/pedidos"}>
           <div className="flex gap-2 justify-start w-100 ml-5 mt-5 text-gray-300">
             <ArrowLeft />
@@ -26,7 +26,9 @@ const page = () => {
             <div className="flex items-center mt-3 justify-center w-13 h-13 rounded-full bg-[var(--color-primary)]">
               <Check className="w-10 h-10 text-white" />
             </div>
-            <p className="text-base font-regular mt-3">Pagamento confirmado</p>
+            <p className="text-base font-regular text-[var(--color-primary)] mt-3">
+              Pagamento confirmado
+            </p>
           </div>
           {/* Barra separadora */}
           <div className="flex items-center justify-center mt-5">
@@ -59,8 +61,8 @@ const page = () => {
           </p>
         </div>
         {/* LINHA PONTILHADA SEPARADORA */}
-        <hr className="border-t-2 border-dotted border-[var(--color-primary)] w-100 mb-5 mt-5" />
-        <div className="w-100 flex mb-5 justify-start text-xl font-semibold ">
+        <hr className="border-t-2 border-dotted border-[var(--color-primary)] w-full mb-5 mt-5" />
+        <div className="w-full flex mb-5 justify-start text-lg md:text-xl font-semibold px-4 ">
           <p>Detalhes do pedido: </p>
         </div>
         {/* CARD DETALHE DO PEDIDO */}
@@ -119,6 +121,38 @@ const page = () => {
           <p className="font-bold texxt-white"> R$ 160,00</p>
         </div>
         {/*====================================== */}
+      </div>
+      <div className="w-full flex px-4 mb-2 justify-start align-center text-xl font-semibold ">
+        <p>Endereço de entrega</p>
+      </div>
+      <div className="flex flex-row w-full items-center px-4 py-2 gap-4 ">
+        <div className="mr-2 md:mr-10">
+          <img
+            src="/endereco_icon.svg
+          "
+            alt="Icone de endereço"
+          />
+        </div>
+        <div className="flex flex-col justify-center">
+          <p className="font-bold text-xl">Casa</p>
+
+          <p>Rua Dois, Caraibeiras</p>
+          <p className="font-light">54 - Caruaru</p>
+        </div>
+      </div>
+
+      {/* LINHA PONTILHADA SEPARADORA */}
+      <div className="flex justify-center items-center align-center ">
+        <hr className="border-t-2 border-dotted border-[var(--color-primary)] w-full mb-5 mt-5" />
+      </div>
+      <div className="w-full flex justify-center items-center flex-col gap-5 text-lg md:text-xl px-4">
+        <p>Algum problema?</p>
+        <div className="flex flex-row w-100">
+          <button className="w-full  flex flex-row justify-center items-center max-w-4xl h-15 mb-5 md:h-14 text-base border-2 border-[#35F300]/50 rounded-lg">
+            Fale conosco no Whatsapp
+            <img src="/whatsapp-icon.svg" className="w-5 h-5 ml-2" alt="" />
+          </button>
+        </div>
       </div>
     </div>
   );

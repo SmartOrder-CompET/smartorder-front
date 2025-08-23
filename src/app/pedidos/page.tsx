@@ -85,7 +85,7 @@ const page = () => {
             </div>
           </div>
         </div>
-        <div className="mt-8 bg-[var(--color-secondary)]  p-2 rounded-[10px]  w-95 h-90 ">
+        <div className="mt-8 bg-[var(--color-secondary)] p-2 rounded-[10px]  w-95 h-90 ">
           <div className="flex justify-center mb-5">
             <h3 className="text-lg font-black">PEDIDO #000002</h3>
           </div>
