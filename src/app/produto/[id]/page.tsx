@@ -6,9 +6,12 @@ import { QuantityAction } from "@/components/ui/QuantityAction"
 import { useCart } from "@/contexts/CartContext"
 import { products } from "@/data/product"
 import { formatPrice } from "@/utils/formatters"
+import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { useRef, useState } from "react"
 import { BsChatDotsFill } from "react-icons/bs";
+import { IoCloseSharp } from "react-icons/io5";
+import { IoShareSocialOutline } from "react-icons/io5";
 
 const Page = () => {
 
@@ -120,6 +123,16 @@ const Page = () => {
                         onClick={handleAddToCart}
                     />
                 </div>
+            </div>
+
+
+            <div className="w-screen px-3 flex items-center justify-between text-4xl absolute top-2">
+                <Link href={'/'}>
+                    <IoCloseSharp />
+                </Link>
+                
+
+                <IoShareSocialOutline />
             </div>
         </main>
     )

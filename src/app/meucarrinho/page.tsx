@@ -81,7 +81,7 @@ const Page = () => {
                         />
 
                         <button 
-                            className="bg-[#181717] text-center font-bold py-1 px-3 rounded-lg border border-[#35F300]"
+                            className="bg-[#181717] text-center font-bold py-1 px-3 rounded-full border border-[#35F300]"
                             onClick={handleClick}
                         >
                             Finalizar por whatsapp

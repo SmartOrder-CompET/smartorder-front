@@ -6,7 +6,8 @@ type Props = {
 export const Button = ({ label, onClick }: Props) => {
     return(
         <button 
-            className="bg-primary text-xl text-center font-bold py-1 px-3 rounded-lg"
+            className="bg-primary text-lg text-center py-1 px-3 rounded-full"
+            style={{ fontFamily: 'primary' }}
             onClick={onClick}
         >
             {label}
