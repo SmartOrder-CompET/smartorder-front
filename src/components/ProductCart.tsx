@@ -7,9 +7,10 @@ import { useCart } from "@/contexts/CartContext";
 
 type Props = {
   cartItem: CartItem;
+  inOrder?: boolean
 };
 
-export const ProductCart = ({ cartItem }: Props) => {
+export const ProductCart = ({ cartItem, inOrder }: Props) => {
     const { dispatch } = useCart();
 
     const handleChangeQuantity = (newValue: number) => {
@@ -23,7 +24,11 @@ export const ProductCart = ({ cartItem }: Props) => {
     return (
         <div className="bg-secondary px-4 py-3 flex justify-between min-w-[300px]">
             <div className="flex flex-col items-start max-w-32">
-                <h5 className="text-md text-center">{cartItem.product.name}</h5>
+
+                {!inOrder &&
+                    <h5 className="text-md text-center">{cartItem.product.name}</h5>
+                }
+                
 
                 <div className="w-32 h-22 overflow-hidden rounded-md">
                     <img
@@ -37,11 +42,19 @@ export const ProductCart = ({ cartItem }: Props) => {
             <div className="w-[1px] bg-white"></div>
 
             <div className="flex flex-col items-center justify-between">
-                <QuantityAction
+                
+
+                {!inOrder &&
+                    <QuantityAction
                     value={cartItem.quantity}
                     setValue={handleChangeQuantity}
                     inCart
                 />
+                }
+
+                {inOrder &&
+                    <p>{cartItem.quantity}X {cartItem.product.name}</p>
+                }
 
                 <div className="text-[#D09D76] text-xs">
                     Ponto da carne: <span className="text-white">dourado</span>
