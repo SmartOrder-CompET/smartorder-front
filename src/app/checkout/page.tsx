@@ -109,7 +109,7 @@ export default function CheckoutPage() {
                 </div>
 
                 <div className="w-full flex justify-center items-center mt-5">
-                    <Button  label="Confirmar compra" onClick={handleCheckOut}/>
+                    <Button  label="Confirmar compra" onClick={handleCheckOut} big/>
                 </div>
             </main>
         </div>
