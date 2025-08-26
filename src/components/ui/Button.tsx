@@ -1,13 +1,15 @@
 type Props = {
     label: string,
-    onClick?: () => void
+    onClick?: () => void,
+    big?: boolean
 }
 
-export const Button = ({ label, onClick }: Props) => {
+export const Button = ({ label, onClick, big}: Props) => {
+
     return(
         <button 
-            className="bg-primary text-lg text-center py-1 px-3 rounded-full"
-            style={{ fontFamily: 'primary' }}
+            className={`bg-primary text-lg text-center ${big ? 'px-10 py-4 rounded-md' : 'py-1 px-3 rounded-full'} `}
+            style={{ fontFamily: big ? 'sans-serif' : 'primary' }}
             onClick={onClick}
         >
             {label}
