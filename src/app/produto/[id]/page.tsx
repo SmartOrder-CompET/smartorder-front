@@ -4,12 +4,13 @@ import { Additional } from "@/components/Additional";
 import { Button } from "@/components/ui/Button";
 import { QuantityAction } from "@/components/ui/QuantityAction";
 import { useCart } from "@/contexts/CartContext";
-import { products } from "@/data/product";
 import { formatPrice } from "@/utils/formatters";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MessageCircleMore, X, Share2 } from "lucide-react";
+import { getProducts } from "@/services/products";
+import { ProductAPI } from "@/types/Product";
 
 const Page = () => {
   const { dispatch } = useCart();
@@ -21,8 +22,27 @@ const Page = () => {
     { id: "wellDone", label: "Carne bem passada" },
   ];
 
+  const [products, setProducts] = useState<ProductAPI[]>([])
+  const [product, setProduct] = useState<ProductAPI | null>(null);
   const productId = usePathname().slice(9);
-  const product = products.filter((item) => item.id === parseInt(productId));
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getProducts();
+        setProducts(data);
+
+        const found = data.find((item: ProductAPI) => item.id === productId);
+        setProduct(found ?? null);
+      } catch (error) {
+        console.error("Erro ao buscar produtos:", error);
+      }
+    };
+
+    fetchData();
+  }, [productId]);
+  
+
   const [quantity, setQuantity] = useState(1);
 
   const observationRef = useRef<HTMLInputElement>(null);
@@ -31,7 +51,7 @@ const Page = () => {
   const handleAddToCart = () => {
     dispatch({
       type: "ADD_PRODUCT",
-      payload: { product: product[0], observation: observationRef, quantity },
+      payload: { product: product, observation: observationRef, quantity },
     });
     router.push("/");
   };
@@ -40,23 +60,23 @@ const Page = () => {
     <main className="h-screen flex flex-col ">
       <div className="px-3 pt-2">
         <img
-          src={product[0].image}
-          alt={product[0].name}
+          src={product?.image}
+          alt={product?.name}
           className="w-full h-auto rounded-xl"
         />
       </div>
 
       <div className="bg-[#22222280] px-5 rounded-t-4xl flex-1">
         <div className="flex justify-between font-bold items-center mt-5">
-          <h2 className="text-3xl break-words">{product[0].name}</h2>
+          <h2 className="text-3xl break-words">{product?.name}</h2>
 
-          <div className="text-xl">{formatPrice(product[0].price)}</div>
+          <div className="text-xl">{formatPrice(parseInt(product?.unitPrice as string))}</div>
         </div>
 
         <div>
           <h4 className="mt-5 mb-3 text-lg">Ingredientes:</h4>
 
-          <p>{product[0].ingredients}</p>
+          <p>{product?.ingredients}</p>
         </div>
 
         <div>
@@ -120,7 +140,7 @@ const Page = () => {
           <QuantityAction value={quantity} setValue={setQuantity} />
 
           <Button
-            label={"Adicionar " + formatPrice(product[0].price * quantity)}
+            label={"Adicionar " + formatPrice(parseInt(product?.unitPrice as string) * quantity)}
             onClick={handleAddToCart}
           />
         </div>

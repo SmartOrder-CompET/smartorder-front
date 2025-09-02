@@ -30,7 +30,7 @@ const Page = () => {
   };
 
   const subtotal = state.items.reduce((acc, item) => {
-    return acc + item.product.price * item.quantity;
+    return acc + +item.product.unitPrice * item.quantity;
   }, 0);
 
   if (state.items.length === 0) {

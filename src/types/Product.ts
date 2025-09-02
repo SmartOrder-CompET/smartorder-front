@@ -9,3 +9,12 @@ export type Product = {
     available: boolean,
     quantity: number
 }
+
+export type ProductAPI = {
+    name: string,
+    id: string,
+    category: string,
+    unitPrice: string,
+    image: string,
+    ingredients: string
+}

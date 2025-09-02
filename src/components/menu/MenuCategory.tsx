@@ -1,7 +1,7 @@
 "use client";
 
 import { Category } from "@/types/CategoryType";
-import { products } from "@/data/product";
+
 import { SectionTitle } from "../SectionTitle";
 import { MenuCard } from "./MenuCard";
 // Importação Swiper
@@ -9,18 +9,34 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/free-mode";
 import { FreeMode } from "swiper/modules";
+import { getProducts } from "@/services/products";
+import { useEffect, useState } from "react";
+import { ProductAPI } from "@/types/Product";
 
 type Props = {
   category: Category;
 };
 
 export const MenuCategory = ({ category }: Props) => {
+
+  const [products, setProducsts] = useState<ProductAPI[]>([])
+
+  const getData = async () => {
+    const data = await getProducts()
+    setProducsts(data)
+    console.log(products)
+  }
+
+  useEffect(() => {
+    getData()
+  }, [products])
+
   const onClick = () => {
     console.log("clicou");
   };
 
   const productsFiltereds = products.filter(
-    (product) => product.categoryId === category.id
+    (product) => product.category === category.name
   );
 
   return (

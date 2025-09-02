@@ -11,6 +11,7 @@
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
     "@mercadopago/sdk-react": "^1.0.4",
+    "axios": "^1.11.0",
     "lucide": "^0.536.0",
     "lucide-react": "^0.536.0",
     "mercadopago": "^2.8.0",

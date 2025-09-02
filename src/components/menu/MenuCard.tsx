@@ -1,9 +1,9 @@
-import { Product } from "@/types/Product";
+import { ProductAPI } from "@/types/Product";
 import { formatPrice } from "@/utils/formatters";
 import Link from "next/link";
 
 type Props = {
-  data: Product;
+  data: ProductAPI;
 };
 
 export const MenuCard = ({ data }: Props) => {
@@ -19,7 +19,7 @@ export const MenuCard = ({ data }: Props) => {
           <div className="flex items-center justify-between">
             <h3 className="font-bold text-sm md:text-base flex-1 mr-2">{data.name}</h3>
             <h5 className="text-primary bg-[#3c3c3c] p-1 px-2 rounded-full font-bold text-[11px] md:text-xs whitespace-nowrap">
-              {formatPrice(data.price)}
+              {formatPrice(+data.unitPrice)}
             </h5>
           </div>
 

@@ -61,7 +61,7 @@ export const ProductCart = ({ cartItem, inOrder }: Props) => {
                 </div>
 
                 <div className="bg-[#181717] p-2 rounded-full text-primary text-sm">
-                    {formatPrice(cartItem.product.price * cartItem.quantity)}
+                    {formatPrice(parseInt(cartItem.product?.unitPrice as string) * cartItem.quantity)}
                 </div>
             </div>
         </div>
