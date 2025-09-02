@@ -51,12 +51,8 @@ const Page = () => {
             >
               Seu carrinho está vazio
             </p>
-            <button
-              className=" text-lg font-semibold bg-[var(--color-primary)] cursor-pointer rounded-2xl w-80 h-15 "
-              onClick={() => router.push("/")}
-            >
-              Voltar para tela inicial
-            </button>
+
+            <Button label="Voltar para para tela inicial" big onClick={() => router.push('/')}/>
           </div>
         </main>
       </div>
@@ -67,7 +63,7 @@ const Page = () => {
     <div>
       <Header />
 
-      <main className="mx-4">
+      <main className="mx-4 pb-20">
         <Title text="Meu Carrinho" />
 
         <div className="flex flex-col gap-4 overflow-y-auto h-[50vh]">
@@ -92,14 +88,14 @@ const Page = () => {
             <div className="text-lg">{formatPrice(subtotal)}</div>
           </div>
 
-          <div className="flex flex-col justify-center mt-3 w-[60%] gap-3 mx-auto">
+          <div className="flex flex-col justify-center mt-3  gap-3 mx-auto">
             <Button
-              label="Finalizar"
+              label="Finalizar "
               onClick={() => router.push("/checkout")}
             />
-            <div className="flex flex-row py-2 px-2 justify-evenly rounded-full  border border-[#35F300]">
+            <div className="flex flex-row gap-2 py-2 px-2 justify-evenly rounded-full  border bg-[#181717] border-[#35F300]">
               <button
-                className="bg-[#181717] text-center font-bold "
+                className=" text-center font-bold "
                 onClick={handleClick}
               >
                 Finalizar por whatsapp
@@ -114,6 +110,7 @@ const Page = () => {
           </div>
         </div>
       </main>
+
       <Navbar />
     </div>
   );

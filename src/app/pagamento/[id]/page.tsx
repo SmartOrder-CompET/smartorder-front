@@ -13,7 +13,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [payment, setPayment] = useState<any>(null);
   const [copied, setCopied] = useState(false);
-  const [isPaid, setIsPaid] = useState(true);
+  const [isPaid, setIsPaid] = useState(false);
 
   const router = useRouter();
 

@@ -16,13 +16,13 @@ const Page = () => {
 
         <div className="flex flex-col h-full items-center w-full px-4 pt-18">
           <Link href={"/pedidos"}>
-            <div className="flex gap-2 justify-start w-100 ml-5 mt-5 text-gray-300">
+            <div className="flex gap-2 justify-start w-screen pl-5 mt-5 text-gray-300">
               <ArrowLeft />
               <span>Voltar</span>
             </div>
           </Link>
 
-          <div className="mt-8 bg-secondary py-4 rounded-md ">
+          <div className="mt-8 bg-secondary p-4 rounded-md ">
             <h2 className="text-2xl text-center my-2" style={{ fontFamily: 'primary' }}>
               ACOMPANHAMENTO
             </h2>
