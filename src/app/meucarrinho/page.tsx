@@ -33,6 +33,18 @@ const Page = () => {
     return acc + +item.product.unitPrice * item.quantity;
   }, 0);
 
+  const handleFinish = () => {
+    const token = localStorage.getItem('token')
+
+    if(!token){
+      router.push('/login')
+    } else{
+      router.push('/checkout')
+    }
+
+
+  }
+
   if (state.items.length === 0) {
     return (
       <div className="h-screen">
@@ -91,7 +103,7 @@ const Page = () => {
           <div className="flex flex-col justify-center mt-3  gap-3 mx-auto">
             <Button
               label="Finalizar "
-              onClick={() => router.push("/checkout")}
+              onClick={handleFinish}
             />
             <div className="flex flex-row gap-2 py-2 px-2 justify-evenly rounded-full  border bg-[#181717] border-[#35F300]">
               <button

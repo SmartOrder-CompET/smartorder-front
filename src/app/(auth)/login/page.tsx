@@ -9,9 +9,13 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import PhoneInput from "@/components/ui/PhoneInput"
+import { validarCliet } from "@/services/clients"
+import { useRouter } from "next/navigation"
 
 
 const Page = () => {
+
+    const router = useRouter()
 
     const formSchema = z.object({
         name: z.string().min(3, "O nome é obrigatório"),
@@ -25,6 +29,19 @@ const Page = () => {
         resolver: zodResolver(formSchema)
     })
 
+    type FormData = z.infer<typeof formSchema>
+
+    const login = async (data: FormData) => {
+        const response = await validarCliet(data.tel)
+
+        if(response){
+            localStorage.setItem('token', response.id)
+            router.push('/checkout')
+        }else {
+            alert('Erro, cliente não existe!')
+        }
+    }
+
     return(
         <div className="pt-10 px-6">
             <img src="logo.svg" alt="Logo do Brasas" className="w-[80%] mx-auto"/>
@@ -33,7 +50,7 @@ const Page = () => {
                 Peça em poucos segundos! Só precisamos do seu número para começar!
             </p>
 
-            <form onSubmit={handleSubmit((data) => console.log(data))} className="flex flex-col gap-6">
+            <form onSubmit={handleSubmit(login)} className="flex flex-col gap-6">
                 <Input 
                     type="text"
                     placeholder="Nome"
