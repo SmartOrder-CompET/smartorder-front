@@ -38,7 +38,7 @@ export const Navbar = () => {
                 src={tab.src}
                 alt={tab.name}
                 className={`${
-                  tab.name === 'whatsapp' ? 'w-16 h-16 opacity-100' : 'w-9 h-9 opacity-100'
+                  tab.name === 'whatsapp' ? 'w-16 h-16 opacity-100' : 'w-8 h-8 opacity-100'
                 } ${isActive ? 'filter saturate-200 brightness-200' : 'opacity-50'}`}
               />
             </div>
