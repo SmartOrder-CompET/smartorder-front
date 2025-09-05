@@ -1,28 +1,34 @@
-// LayoutClient.tsx
-"use client";
-import { useState } from "react";
+'use client';
+
+import { ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import { Header } from "./Header";
 import { Navbar } from "./Navbar";
 import { ProfileSidebar } from "./ProfileSidebar";
+import { useProfileSidebar } from "@/contexts/ProfileSidebarContext";
 
-export default function LayoutClient({ children }: { children: React.ReactNode }) {
-  const [profileOpen, setProfileOpen] = useState(false);
+interface LayoutClientProps {
+  children: ReactNode;
+}
+
+export default function LayoutClient({ children }: LayoutClientProps) {
+  const { open, closeSidebar } = useProfileSidebar();
+  const pathname = usePathname();
+
+  // Oculta Header/Navbar
+  const hideHeaderNav = pathname === "/login" || pathname === "/cadastro" || pathname === "/enderecos";
 
   return (
     <>
-      {/* Header fixo */}
-      <Header onProfileClick={() => setProfileOpen(true)} />
-
-      {/* Conteúdo da página com margin-top igual à altura do header */}
-      <div className="mt-[4.5rem] md:mt-[5rem]">
+      {!hideHeaderNav && <Header />}
+      
+      <main className={`${!hideHeaderNav ? "pt-20 pb-20 max-w-md md:max-w-3xl lg:max-w-5xl mx-auto" : "w-full min-h-screen"}`}>
         {children}
-      </div>
+      </main>
 
-      {/* Sidebar */}
-      <ProfileSidebar open={profileOpen} onClose={() => setProfileOpen(false)} />
+      <ProfileSidebar open={open} onClose={closeSidebar} />
 
-      {/* Navbar */}
-      <Navbar />
+      {!hideHeaderNav && <Navbar />}
     </>
   );
 }

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/Button"
 import { Input } from "@/components/ui/Input"
 import Link from "next/link"
 
-// Form dependecies
+// Form dependencies
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -21,9 +21,18 @@ const Page = () => {
             .regex(/^\(\d{2}\) 9 \d{4}-\d{4}$/, "Telefone inválido")
     })
 
-    const { control, register, handleSubmit, formState: { errors } } = useForm({
+    const { control, register, handleSubmit, watch, formState: { errors } } = useForm({
         resolver: zodResolver(formSchema)
     })
+
+    // Captura o valor atual do input "name"
+    const nomeDigitado = watch("name")
+
+    const onSubmit = (data: any) => {
+        console.log("Dados do formulário:", data)
+        console.log("Nome digitado em tempo real:", nomeDigitado)
+        // Aqui você pode passar `nomeDigitado` para a ProfileSidebar
+    }
 
     return(
         <div className="pt-10 px-6">
@@ -33,7 +42,7 @@ const Page = () => {
                 REALIZE SEU CADASTRO EM POUCOS PASSOS:
             </p>
 
-            <form onSubmit={handleSubmit((data) => console.log(data))} className="flex flex-col gap-6 mb-6">
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6 mb-6">
                 <Input 
                     type="text"
                     placeholder="Nome"

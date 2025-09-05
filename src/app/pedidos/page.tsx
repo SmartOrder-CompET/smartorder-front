@@ -13,7 +13,7 @@ const Page = () => {
     <div className="max-w-md  w-full md:max-w-3xl lg:max-w-5xl md:mx-auto  min-h-screen">
       <Header />
       {/* Titulo da pagina  */}
-      <div className="flex h-full items-center justify-center pt-18">
+      <div className="flex h-full items-center justify-center">
         <h1 className="text-xl font-bold mt-8 text-[var(--color-primary)]">
           MEUS PEDIDOS
         </h1>

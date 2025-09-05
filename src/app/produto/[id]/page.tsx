@@ -37,7 +37,7 @@ const Page = () => {
   };
 
   return (
-    <main className="h-screen flex flex-col ">
+    <main className="relative inset-0 z-50 bg-[#111] flex flex-col">
       <div className="px-3 pt-2">
         <img
           src={product[0].image}

@@ -4,19 +4,17 @@ import { useCart } from "@/contexts/CartContext";
 import { User, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useProfileSidebar } from "@/contexts/ProfileSidebarContext";
 
-interface HeaderProps {
-  onProfileClick?: () => void;
-}
-
-export const Header = ({ onProfileClick }: HeaderProps) => {
+export const Header = () => {
   const path = usePathname();
   const { state } = useCart();
+  const { openSidebar } = useProfileSidebar();
 
   return (
     <header className="fixed top-0 left-0 z-50 flex h-18 w-full justify-between items-center px-4 md:px-8 py-2 bg-[#100A06]">
       <button
-        onClick={onProfileClick}
+        onClick={openSidebar}
         className="flex items-center p-3 rounded-full bg-transparent hover:bg-primary/20 transition"
       >
         <User size={20} />
