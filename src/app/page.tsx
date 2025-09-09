@@ -1,22 +1,17 @@
 "use client";
+
 import "./globals.css";
 import { CategoryProducts } from "../components/category/CategoryProducts";
 import { MenuArea } from "../components/menu/MenuArea";
-import {  MapPin, Search } from "lucide-react";
-import { Header } from "@/components/Header";
-import { Navbar } from "@/components/Navbar";
+import { MapPin, Search } from "lucide-react";
 
 const Page = () => {
   return (
-    <div
-  className="max-w-md md:max-w-3xl lg:max-w-5xl mx-auto text-white min-h-screen">
-
-      <Header />
-
+    <div className="max-w-md md:max-w-3xl lg:max-w-5xl mx-auto text-white min-h-screen">
       {/* Endereço */}
-      <div className="flex items-center justify-center h-8 mt-2 pt-18">
+      <div className="flex items-center justify-center h-8 mt-2">
         <MapPin size={16} color="#D17719" />
-        <p className="text-xs pl-1 font-montserrat ">
+        <p className="text-xs pl-1 font-montserrat">
           Av. José Estevão, 100, Carabeiras
         </p>
       </div>
@@ -66,10 +61,8 @@ const Page = () => {
       <div className="mt-4 px-4 md:px-8 pb-20">
         <MenuArea />
       </div>
-      <Navbar />
     </div>
   );
-  
 };
 
 export default Page;
