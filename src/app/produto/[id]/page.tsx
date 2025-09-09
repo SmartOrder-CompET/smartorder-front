@@ -11,6 +11,7 @@ import { useEffect, useRef, useState } from "react";
 import { MessageCircleMore, X, Share2 } from "lucide-react";
 import { getProducts } from "@/services/products";
 import { ProductAPI } from "@/types/Product";
+import { getCardapio } from "@/services/cardapio";
 
 const Page = () => {
   const { dispatch } = useCart();
@@ -23,14 +24,15 @@ const Page = () => {
   ];
 
   const [products, setProducts] = useState<ProductAPI[]>([])
-  const [product, setProduct] = useState<ProductAPI | null>(null);
+  const [product, setProduct] = useState<any | null>(null);
   const productId = usePathname().slice(9);
   
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getProducts();
-        setProducts(data);
+        const data = await getCardapio();
+        //@ts-ignore
+        setProducts(data.produto);
 
         const found = data.find((item: ProductAPI) => item.id === productId);
         setProduct(found ?? null);
@@ -60,23 +62,23 @@ const Page = () => {
     <main className="h-screen flex flex-col ">
       <div className="px-3 pt-2">
         <img
-          src={product?.image}
-          alt={product?.name}
+          src={product?.imagem}
+          alt={product?.nome}
           className="w-full h-auto rounded-xl"
         />
       </div>
 
       <div className="bg-[#22222280] px-5 rounded-t-4xl flex-1">
         <div className="flex justify-between font-bold items-center mt-5">
-          <h2 className="text-3xl break-words">{product?.name}</h2>
+          <h2 className="text-3xl break-words">{product?.nome}</h2>
 
-          <div className="text-xl">{formatPrice(parseInt(product?.unitPrice as string))}</div>
+          <div className="text-xl">{formatPrice(parseInt(product?.precoUnitario as string))}</div>
         </div>
 
         <div>
           <h4 className="mt-5 mb-3 text-lg">Ingredientes:</h4>
 
-          <p>{product?.ingredients}</p>
+          <p>{product?.descricao}</p>
         </div>
 
         <div>
@@ -140,7 +142,7 @@ const Page = () => {
           <QuantityAction value={quantity} setValue={setQuantity} />
 
           <Button
-            label={"Adicionar " + formatPrice(parseInt(product?.unitPrice as string) * quantity)}
+            label={"Adicionar " + formatPrice(parseInt(product?.precoUnitario as string) * quantity)}
             onClick={handleAddToCart}
           />
         </div>

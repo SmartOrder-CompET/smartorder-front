@@ -12,6 +12,8 @@ import { FreeMode } from "swiper/modules";
 import { getProducts } from "@/services/products";
 import { useEffect, useState } from "react";
 import { ProductAPI } from "@/types/Product";
+import { useQuery } from "@tanstack/react-query";
+import { getCardapio } from "@/services/cardapio";
 
 type Props = {
   category: Category;
@@ -19,25 +21,24 @@ type Props = {
 
 export const MenuCategory = ({ category }: Props) => {
 
-  const [products, setProducsts] = useState<ProductAPI[]>([])
+  
+  const { data: products, isLoading, error } = useQuery({ 
+    queryKey: ["produtos"], 
+    queryFn: getCardapio,
+    staleTime: 100000
+  })
 
-  const getData = async () => {
-    const data = await getProducts()
-    setProducsts(data)
-    console.log(products)
-  }
-
-  useEffect(() => {
-    getData()
-  }, [products])
+  // useEffect(() => {
+  //   console.log(products)
+  // }, [products])
 
   const onClick = () => {
     console.log("clicou");
   };
 
-  const productsFiltereds = products.filter(
-    (product) => product.category === category.name
-  );
+  // const productsFiltereds = products?.filter(
+  //   (product) => product !== category.name
+  // );
 
   return (
     <div className="mb-8">
@@ -64,9 +65,11 @@ export const MenuCategory = ({ category }: Props) => {
           },
         }}
       >
-        {productsFiltereds.map((product) => (
-          <SwiperSlide key={product.id}>
-            <MenuCard data={product} />
+        {products?.map((product) => (
+          //@ts-ignore
+          <SwiperSlide key={product.produto.id}>
+            {/* @ts-ignore */}
+            <MenuCard data={product.produto } />
           </SwiperSlide>
         ))}
       </Swiper>
