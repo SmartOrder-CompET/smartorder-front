@@ -16,7 +16,7 @@ export default function LayoutClient({ children }: LayoutClientProps) {
   const pathname = usePathname();
 
   // Oculta Header/Navbar
-  const hideHeaderNav = pathname === "/login" || pathname === "/cadastro" || pathname === "/enderecos";
+  const hideHeaderNav = pathname === "/login" || pathname === "/cadastro" || pathname === "/enderecos" || pathname.includes('/produto') || pathname.includes('/pagamento');
 
   return (
     <>
