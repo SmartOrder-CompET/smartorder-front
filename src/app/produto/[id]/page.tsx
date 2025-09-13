@@ -7,11 +7,10 @@ import { useCart } from "@/contexts/CartContext";
 import { formatPrice } from "@/utils/formatters";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { MessageCircleMore, X, Share2 } from "lucide-react";
-import { getProducts } from "@/services/products";
-import { ProductAPI } from "@/types/Product";
-import { getCardapio } from "@/services/cardapio";
+import { getProduct } from "@/services/products";
+import { useQuery } from "@tanstack/react-query";
 
 const Page = () => {
   const { dispatch } = useCart();
@@ -23,27 +22,12 @@ const Page = () => {
     { id: "wellDone", label: "Carne bem passada" },
   ];
 
-  const [products, setProducts] = useState<ProductAPI[]>([])
-  const [product, setProduct] = useState<any | null>(null);
   const productId = usePathname().slice(9);
   
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getCardapio();
-        //@ts-ignore
-        setProducts(data.produto);
-
-        const found = data.find((item: ProductAPI) => item.id === productId);
-        setProduct(found ?? null);
-      } catch (error) {
-        console.error("Erro ao buscar produtos:", error);
-      }
-    };
-
-    fetchData();
-  }, [productId]);
-  
+  const { data: product, isLoading, error } = useQuery({ 
+    queryKey: ["produto"], 
+    queryFn: () => getProduct(productId),
+  })
 
   const [quantity, setQuantity] = useState(1);
 
@@ -64,7 +48,7 @@ const Page = () => {
         <img
           src={product?.imagem}
           alt={product?.nome}
-          className="w-full h-auto rounded-xl"
+          className="w-full h-auto rounded-xl max-h-[250px]"
         />
       </div>
 

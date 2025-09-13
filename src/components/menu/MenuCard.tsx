@@ -1,17 +1,15 @@
-import { ProductAPI } from "@/types/Product";
+
+import { Product } from "@/types/Product";
 import { formatPrice } from "@/utils/formatters";
 import Link from "next/link";
 import { useEffect } from "react";
 
 type Props = {
-  data: ProductAPI;
+  data: Product;
 };
 
-export const MenuCard = ({ data }: any) => {
+export const MenuCard = ({ data }: Props) => {
 
-  useEffect(() => {
-    console.log(data)
-  }, [data])
 
   return (
     <Link href={`/produto/${data.id}`}>

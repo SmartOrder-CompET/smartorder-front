@@ -26,13 +26,13 @@ export const ProductCart = ({ cartItem, inOrder }: Props) => {
             <div className="flex flex-col items-start max-w-32">
 
                 {!inOrder &&
-                    <h5 className="text-md text-center">{cartItem.product.name}</h5>
+                    <h5 className="text-md text-center">{cartItem.product.nome}</h5>
                 }
                 
 
                 <div className="w-32 h-22 overflow-hidden rounded-md">
                     <img
-                    src={cartItem.product.image}
+                    src={cartItem.product.imagem}
                     alt="Imagem"
                     className="object-cover w-full h-full"
                     />
@@ -53,7 +53,7 @@ export const ProductCart = ({ cartItem, inOrder }: Props) => {
                 }
 
                 {inOrder &&
-                    <p>{cartItem.quantity}X {cartItem.product.name}</p>
+                    <p>{cartItem.quantity}X {cartItem.product.nome}</p>
                 }
 
                 <div className="text-[#D09D76] text-xs">
@@ -61,7 +61,7 @@ export const ProductCart = ({ cartItem, inOrder }: Props) => {
                 </div>
 
                 <div className="bg-[#181717] p-2 rounded-full text-primary text-sm">
-                    {formatPrice(parseInt(cartItem.product?.unitPrice as string) * cartItem.quantity)}
+                    {formatPrice(parseInt(cartItem.product?.precoUnitario as string) * cartItem.quantity)}
                 </div>
             </div>
         </div>

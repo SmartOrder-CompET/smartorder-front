@@ -1,20 +1,22 @@
-export type Product = {
-    id: number,
-    name: string,
-    description?: string,
-    categoryId: number,
-    ingredients: string,
-    price: number,
-    image?: string,
-    available: boolean,
-    quantity: number
+export type Products = {
+    id: string,
+    preco: string,
+    disponivel: boolean,
+    ordem: 1,
+    destaque: boolean,
+    criadoEm: string,
+    atualizadoEm: string,
+    produto: Product
 }
 
-export type ProductAPI = {
-    name: string,
+export type Product = {
     id: string,
-    category: string,
-    unitPrice: string,
-    image: string,
-    ingredients: string
+    nome: string,
+    descricao: string,
+    imagem: string,
+    ingredients: string,
+    precoUnitario: string,
+    categoriaId: string,
+    criadoEm: string,
+    atualizadoEm: string,
 }

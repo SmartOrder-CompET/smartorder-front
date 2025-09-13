@@ -1,7 +1,5 @@
 "use client";
 
-import { Category } from "@/types/CategoryType";
-
 import { SectionTitle } from "../SectionTitle";
 import { MenuCard } from "./MenuCard";
 // Importação Swiper
@@ -9,40 +7,22 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/free-mode";
 import { FreeMode } from "swiper/modules";
-import { getProducts } from "@/services/products";
-import { useEffect, useState } from "react";
-import { ProductAPI } from "@/types/Product";
-import { useQuery } from "@tanstack/react-query";
-import { getCardapio } from "@/services/cardapio";
+
+import { Secoes } from "@/types/Secoes";
 
 type Props = {
-  category: Category;
+  secao: Secoes;
 };
 
-export const MenuCategory = ({ category }: Props) => {
-
-  
-  const { data: products, isLoading, error } = useQuery({ 
-    queryKey: ["produtos"], 
-    queryFn: getCardapio,
-    staleTime: 100000
-  })
-
-  // useEffect(() => {
-  //   console.log(products)
-  // }, [products])
+export const MenuCategory = ({ secao }: Props) => {
 
   const onClick = () => {
     console.log("clicou");
   };
 
-  // const productsFiltereds = products?.filter(
-  //   (product) => product !== category.name
-  // );
-
   return (
     <div className="mb-8">
-      <SectionTitle title={category.name} onClick={onClick} />
+      <SectionTitle title={secao.nome} onClick={onClick} />
 
       <Swiper
         slidesPerView={1.8}
@@ -65,11 +45,9 @@ export const MenuCategory = ({ category }: Props) => {
           },
         }}
       >
-        {products?.map((product) => (
-          //@ts-ignore
+        {secao.produtos?.map((product) => (
           <SwiperSlide key={product.produto.id}>
-            {/* @ts-ignore */}
-            <MenuCard data={product.produto } />
+            <MenuCard data={product.produto} />
           </SwiperSlide>
         ))}
       </Swiper>

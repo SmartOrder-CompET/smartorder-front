@@ -27,7 +27,7 @@ export default function CheckoutPage() {
   }, [state.items, router]);
 
   const subtotal = state.items.reduce((acc, item) => {
-    return acc + +item.product.unitPrice * item.quantity;
+    return acc + +item.product.precoUnitario * item.quantity;
   }, 0);
 
   const handleCheckOut = async () => {

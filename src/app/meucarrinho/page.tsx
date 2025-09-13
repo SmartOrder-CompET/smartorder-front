@@ -17,7 +17,7 @@ const Page = () => {
 
   const message = [
     "Olá, quero fazer um pedido e esses são os itens:",
-    ...state.items.map((item) => `${item.quantity}x ${item.product.name}`),
+    ...state.items.map((item) => `${item.quantity}x ${item.product.nome}`),
   ].join("\n");
 
   const phoneNumber = "558194020566";
@@ -30,7 +30,7 @@ const Page = () => {
   };
 
   const subtotal = state.items.reduce((acc, item) => {
-    return acc + +item.product.unitPrice * item.quantity;
+    return acc + +item.product.precoUnitario * item.quantity;
   }, 0);
 
   const handleFinish = () => {
@@ -41,8 +41,6 @@ const Page = () => {
     } else{
       router.push('/checkout')
     }
-
-
   }
 
   if (state.items.length === 0) {

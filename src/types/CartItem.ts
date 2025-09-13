@@ -1,7 +1,7 @@
-import { Product, ProductAPI } from "@/types/Product";
+import { Product } from "@/types/Product";
 
 export type CartItem = {
-    product: ProductAPI; 
+    product: Product; 
     quantity: number; 
     observation?: string; 
 }
