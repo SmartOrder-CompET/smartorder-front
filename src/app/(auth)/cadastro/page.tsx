@@ -18,11 +18,11 @@ const Page = () => {
 
     const formSchema = z.object({
         name: z.string().min(3, "O nome é obrigatório"),
-        email: z.email('Digite um email válido'),
+        email: z.email('Digite um email válido').optional(),
         tel: z
             .string()
-            .min(15, "Telefone incompleto")
-            .regex(/^\(\d{2}\) 9 \d{4}-\d{4}$/, "Telefone inválido")
+            .min(14, "Telefone incompleto")
+            .regex(/^\(\d{2}\) \d{4}-\d{4}$/, "Telefone inválido")
     })
 
     type FormData = z.infer<typeof formSchema>
@@ -33,7 +33,10 @@ const Page = () => {
 
     const registerClient = async (data: FormData) => {
         try {
-            const response = await createClient(data.name, data.tel)
+            const unmaskedTel = data.tel.replace(/\D/g, "")
+
+            const response = await createClient(data.name, unmaskedTel)
+            console.log(unmaskedTel)
 
             console.log("Usuário criado com sucesso:", response?.data)
 

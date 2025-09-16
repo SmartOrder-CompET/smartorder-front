@@ -47,7 +47,8 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
 
 
     const handleClick = async () => {
-        const CustomerId = localStorage.getItem('token')
+        const CustomerToken = localStorage.getItem('token')
+        const CustomerId = localStorage.getItem('id')
 
         if(!CustomerId) return
 
@@ -56,7 +57,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                 itemId: item.product.id,
                 amount: item.quantity
             }));
-            const response = await createOrder(CustomerId as string, formattedItems)
+            const response = await createOrder(CustomerId as string, CustomerToken as string ,formattedItems)
             console.log(response)
             console.log(CustomerId)
             console.log(formattedItems)

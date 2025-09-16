@@ -35,8 +35,9 @@ const Page = () => {
 
   const handleFinish = () => {
     const token = localStorage.getItem('token')
+    const id = localStorage.getItem('id')
 
-    if(!token){
+    if(!token || !id){
       router.push('/login')
     } else{
       router.push('/checkout')

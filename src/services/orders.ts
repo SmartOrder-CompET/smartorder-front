@@ -1,14 +1,19 @@
 import { CartItem } from "@/types/CartItem";
 import api from "./api";
+import { headers } from "next/headers";
 
-export const createOrder = async (id: string, items: { itemId: string, amount: number }[]) => {
+export const createOrder = async (id: string, token: string , items: { itemId: string, amount: number }[]) => {
     try{
-        const response = await api.post('/api/v1/orders', {
-            customerId: id,
-            items: items.map(item => ({
-                itemId: item.itemId,
-                amount: item.amount,
+        const response = await api.post('/api/v1/pedido', {
+            clienteId: id,
+            produtos: items.map(item => ({
+                produtoId: item.itemId,
+                quantidade: item.amount,
             }))
+        }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
         })
 
         console.log('Pedido criado com sucesso:', response.data);

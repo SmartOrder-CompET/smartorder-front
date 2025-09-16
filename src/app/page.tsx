@@ -32,7 +32,7 @@ const Page = () => {
           </p>
           <div className="mt-3 md:mt-4">
             <button className="bg-[var(--color-primary)] text-sm md:text-base font-semibold px-4 py-2 cursor-pointer rounded-full hover:brightness-110 transition-all">
-              Shop Now
+              Compre agora!
             </button>
           </div>
         </div>

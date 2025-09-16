@@ -21,8 +21,8 @@ const Page = () => {
         name: z.string().min(3, "O nome é obrigatório"),
         tel: z
             .string()
-            .min(15, "Telefone incompleto")
-            .regex(/^\(\d{2}\) 9 \d{4}-\d{4}$/, "Telefone inválido")
+            .min(14, "Telefone incompleto")
+            .regex(/^\(\d{2}\) \d{4}-\d{4}$/, "Telefone inválido")
     })
 
     const { control, register, handleSubmit, formState: { errors } } = useForm({
@@ -32,10 +32,14 @@ const Page = () => {
     type FormData = z.infer<typeof formSchema>
 
     const login = async (data: FormData) => {
-        const response = await validarCliet(data.tel)
+        const unmaskedTel = data.tel.replace(/\D/g, "")
+        const response = await validarCliet(unmaskedTel)
 
         if(response){
-            localStorage.setItem('token', response.id)
+            //@ts-ignore
+            localStorage.setItem('token', response.data.accessToken as string)
+            //@ts-ignore
+            localStorage.setItem('id', response.data.user.id as string)
             router.push('/checkout')
         }else {
             alert('Erro, cliente não existe!')

@@ -21,6 +21,8 @@ export default function CheckoutPage() {
   const [selected, setSelected] = useState("dinheiro");
 
   useEffect(() => {
+    const CustomerToken = localStorage.getItem('token')
+        const CustomerId = localStorage.getItem('id')
     if (state.items.length === 0) {
       router.replace("/");
     }
