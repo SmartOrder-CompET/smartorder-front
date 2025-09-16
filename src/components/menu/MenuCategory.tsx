@@ -1,7 +1,5 @@
 "use client";
 
-import { Category } from "@/types/CategoryType";
-import { products } from "@/data/product";
 import { SectionTitle } from "../SectionTitle";
 import { MenuCard } from "./MenuCard";
 // Importação Swiper
@@ -10,22 +8,21 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import { FreeMode } from "swiper/modules";
 
+import { Secoes } from "@/types/Secoes";
+
 type Props = {
-  category: Category;
+  secao: Secoes;
 };
 
-export const MenuCategory = ({ category }: Props) => {
+export const MenuCategory = ({ secao }: Props) => {
+
   const onClick = () => {
     console.log("clicou");
   };
 
-  const productsFiltereds = products.filter(
-    (product) => product.categoryId === category.id
-  );
-
   return (
     <div className="mb-8">
-      <SectionTitle title={category.name} onClick={onClick} />
+      <SectionTitle title={secao.nome} onClick={onClick} />
 
       <Swiper
         slidesPerView={1.8}
@@ -48,9 +45,9 @@ export const MenuCategory = ({ category }: Props) => {
           },
         }}
       >
-        {productsFiltereds.map((product) => (
-          <SwiperSlide key={product.id}>
-            <MenuCard data={product} />
+        {secao.produtos?.map((product) => (
+          <SwiperSlide key={product.produto.id}>
+            <MenuCard data={product.produto} />
           </SwiperSlide>
         ))}
       </Swiper>

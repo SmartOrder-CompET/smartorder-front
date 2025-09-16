@@ -21,13 +21,15 @@ export default function CheckoutPage() {
   const [selected, setSelected] = useState("dinheiro");
 
   useEffect(() => {
+    const CustomerToken = localStorage.getItem('token')
+        const CustomerId = localStorage.getItem('id')
     if (state.items.length === 0) {
       router.replace("/");
     }
   }, [state.items, router]);
 
   const subtotal = state.items.reduce((acc, item) => {
-    return acc + item.product.price * item.quantity;
+    return acc + +item.product.precoUnitario * item.quantity;
   }, 0);
 
   const handleCheckOut = async () => {

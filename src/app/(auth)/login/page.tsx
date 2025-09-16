@@ -9,21 +9,42 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import PhoneInput from "@/components/ui/PhoneInput"
+import { validarCliet } from "@/services/clients"
+import { useRouter } from "next/navigation"
 
 
 const Page = () => {
+
+    const router = useRouter()
 
     const formSchema = z.object({
         name: z.string().min(3, "O nome é obrigatório"),
         tel: z
             .string()
-            .min(15, "Telefone incompleto")
-            .regex(/^\(\d{2}\) 9 \d{4}-\d{4}$/, "Telefone inválido")
+            .min(14, "Telefone incompleto")
+            .regex(/^\(\d{2}\) \d{4}-\d{4}$/, "Telefone inválido")
     })
 
     const { control, register, handleSubmit, formState: { errors } } = useForm({
         resolver: zodResolver(formSchema)
     })
+
+    type FormData = z.infer<typeof formSchema>
+
+    const login = async (data: FormData) => {
+        const unmaskedTel = data.tel.replace(/\D/g, "")
+        const response = await validarCliet(unmaskedTel)
+
+        if(response){
+            //@ts-ignore
+            localStorage.setItem('token', response.data.accessToken as string)
+            //@ts-ignore
+            localStorage.setItem('id', response.data.user.id as string)
+            router.push('/checkout')
+        }else {
+            alert('Erro, cliente não existe!')
+        }
+    }
 
     return(
         <div className="pt-10 px-6">
@@ -33,7 +54,7 @@ const Page = () => {
                 Peça em poucos segundos! Só precisamos do seu número para começar!
             </p>
 
-            <form onSubmit={handleSubmit((data) => console.log(data))} className="flex flex-col gap-6">
+            <form onSubmit={handleSubmit(login)} className="flex flex-col gap-6">
                 <Input 
                     type="text"
                     placeholder="Nome"

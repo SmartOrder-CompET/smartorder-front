@@ -9,29 +9,43 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import PhoneInput from "@/components/ui/PhoneInput"
+import { createClient } from "@/services/clients"
+import { useRouter } from "next/navigation"
 
 const Page = () => {
 
+    const router = useRouter()
+
     const formSchema = z.object({
         name: z.string().min(3, "O nome é obrigatório"),
-        email: z.email('Digite um email válido'),
+        email: z.email('Digite um email válido').optional(),
         tel: z
             .string()
-            .min(15, "Telefone incompleto")
-            .regex(/^\(\d{2}\) 9 \d{4}-\d{4}$/, "Telefone inválido")
+            .min(14, "Telefone incompleto")
+            .regex(/^\(\d{2}\) \d{4}-\d{4}$/, "Telefone inválido")
     })
 
-    const { control, register, handleSubmit, watch, formState: { errors } } = useForm({
+    type FormData = z.infer<typeof formSchema>
+
+    const { control, register, handleSubmit, formState: { errors } } = useForm({
         resolver: zodResolver(formSchema)
     })
 
-    // Captura o valor atual do input "name"
-    const nomeDigitado = watch("name")
+    const registerClient = async (data: FormData) => {
+        try {
+            const unmaskedTel = data.tel.replace(/\D/g, "")
 
-    const onSubmit = (data: any) => {
-        console.log("Dados do formulário:", data)
-        console.log("Nome digitado em tempo real:", nomeDigitado)
-        // Aqui você pode passar `nomeDigitado` para a ProfileSidebar
+            const response = await createClient(data.name, unmaskedTel)
+            console.log(unmaskedTel)
+
+            console.log("Usuário criado com sucesso:", response?.data)
+
+            router.push("/login")
+        } catch (error: any) {
+            console.error("Erro ao criar usuário:", error?.response?.data || error.message)
+        }
+
+
     }
 
     return(
@@ -42,7 +56,7 @@ const Page = () => {
                 REALIZE SEU CADASTRO EM POUCOS PASSOS:
             </p>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6 mb-6">
+            <form onSubmit={handleSubmit(registerClient)} className="flex flex-col gap-6 mb-6">
                 <Input 
                     type="text"
                     placeholder="Nome"
@@ -64,9 +78,9 @@ const Page = () => {
                 />
 
                 <div className="flex justify-center items-center">
-                    <Link href={'/enderecos'}>
-                        <Button label="Enviar SMS"/>
-                    </Link>
+                    
+                    <Button label="Enviar SMS"/>
+                    
                 </div>
             </form>
 

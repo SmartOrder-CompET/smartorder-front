@@ -17,7 +17,7 @@ const Page = () => {
 
   const message = [
     "Olá, quero fazer um pedido e esses são os itens:",
-    ...state.items.map((item) => `${item.quantity}x ${item.product.name}`),
+    ...state.items.map((item) => `${item.quantity}x ${item.product.nome}`),
   ].join("\n");
 
   const phoneNumber = "558194020566";
@@ -30,8 +30,19 @@ const Page = () => {
   };
 
   const subtotal = state.items.reduce((acc, item) => {
-    return acc + item.product.price * item.quantity;
+    return acc + +item.product.precoUnitario * item.quantity;
   }, 0);
+
+  const handleFinish = () => {
+    const token = localStorage.getItem('token')
+    const id = localStorage.getItem('id')
+
+    if(!token || !id){
+      router.push('/login')
+    } else{
+      router.push('/checkout')
+    }
+  }
 
   if (state.items.length === 0) {
     return (
@@ -91,7 +102,7 @@ const Page = () => {
           <div className="flex flex-col justify-center mt-3  gap-3 mx-auto">
             <Button
               label="Finalizar "
-              onClick={() => router.push("/checkout")}
+              onClick={handleFinish}
             />
             <div className="flex flex-row gap-2 py-2 px-2 justify-evenly rounded-full  border bg-[#181717] border-[#35F300]">
               <button
