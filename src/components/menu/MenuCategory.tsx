@@ -7,19 +7,24 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/free-mode";
 import { FreeMode } from "swiper/modules";
+import { useRouter } from "next/navigation";
 
 type Props = {
   category: CategoryWithProducts;
 };
 
 export const MenuCategory = ({ category }: Props) => {
-  const onClick = () => {
-    console.log("clicou");
+  const router = useRouter();
+
+  const handleVerTudo = () => {
+    // Redireciona para a página da categoria usando o ID
+    router.push(`/categories/${category.id}`);
   };
 
   return (
     <div className="mb-8">
-      <SectionTitle title={category.name} onClick={onClick} />
+      {/* Passa a função handleVerTudo para o SectionTitle */}
+      <SectionTitle title={category.name} onClick={handleVerTudo} />
 
       <Swiper
         slidesPerView={1.8}

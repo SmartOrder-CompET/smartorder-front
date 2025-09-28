@@ -6,24 +6,34 @@ import { MenuCategory } from "./MenuCategory";
 import { CategoryWithProducts } from "@/types/CategoryWithProducts";
 
 type Props = {
-  searchTerm: string;
+  searchTerm?: string;
+  categoryId?: number; 
+  productsOverride?: typeof products; 
 };
 
-export const MenuArea = ({ searchTerm }: Props) => {
-  const categoriesWithProducts: CategoryWithProducts[] = categories.map(
-    (category) => ({
+export const MenuArea = ({
+  searchTerm = "",
+  categoryId,
+  productsOverride,
+}: Props) => {
+  // Decide qual lista de produtos usar
+  const allProducts = productsOverride ?? products;
+
+  // Mapeia categorias
+  const categoriesToRender: CategoryWithProducts[] = categories
+    .filter((cat) => (categoryId ? cat.id === categoryId : true)) 
+    .map((category) => ({
       ...category,
-      products: products.filter(
+      products: allProducts.filter(
         (p) =>
           p.categoryId === category.id &&
           p.name.toLowerCase().includes(searchTerm.toLowerCase())
       ),
-    })
-  );
+    }));
 
   return (
     <section>
-      {categoriesWithProducts.map(
+      {categoriesToRender.map(
         (category) =>
           category.products.length > 0 && (
             <MenuCategory key={category.id} category={category} />

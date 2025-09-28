@@ -51,7 +51,7 @@ const Page = () => {
             type="text"
             placeholder="Pesquisar"
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)} // atualiza estado
+            onChange={(e) => setSearchTerm(e.target.value)}
             className="bg-transparent border-none outline-none w-full text-white placeholder:text-white ml-2 text-sm"
           />
         </div>
