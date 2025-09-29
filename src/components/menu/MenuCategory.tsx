@@ -23,7 +23,6 @@ export const MenuCategory = ({ category }: Props) => {
 
   return (
     <div className="mb-8">
-      {/* Passa a função handleVerTudo para o SectionTitle */}
       <SectionTitle title={category.name} onClick={handleVerTudo} />
 
       <Swiper
