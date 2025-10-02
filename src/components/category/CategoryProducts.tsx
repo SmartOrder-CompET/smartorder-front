@@ -3,24 +3,16 @@
 import { categories } from "@/data/category";
 import { SectionTitle } from "../SectionTitle";
 import { CategoryItem } from "./CategoryItem";
-// Import Swiper components
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/free-mode";
-
-// Import required modules
 import { FreeMode } from "swiper/modules";
 
 export const CategoryProducts = () => {
-  const onClick = () => {
-    console.log("clicou");
-  };
-
   return (
     <div className="w-full">
-      <SectionTitle title="Selecione a categoria" onClick={onClick} />
+      {/* Aqui já temos o SectionTitle */}
+      <SectionTitle title="Selecione a categoria" href="/categories" />
 
       <Swiper
         slidesPerView="auto"

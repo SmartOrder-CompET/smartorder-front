@@ -12,13 +12,13 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <CartProvider>
-        <ProfileSidebarProvider>
-          <html lang="pt-br">
+      <ProfileSidebarProvider>
+          <html lang="pt-BR">
             <body className="bg-[#100A06] text-white">
               <LayoutClient>{children}</LayoutClient>
             </body>
           </html>
-        </ProfileSidebarProvider>
+      </ProfileSidebarProvider>
     </CartProvider>
   );
 }

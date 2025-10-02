@@ -12,7 +12,7 @@ export const MenuCard = ({ data }: Props) => {
       <div className="bg-secondary rounded-md h-full shadow-md transition-transform hover:scale-[1.02] md:hover:shadow-lg">
         <div
           className="bg-cover bg-center h-[150px] md:h-[180px] w-full rounded-t-md"
-          style={{ backgroundImage: `url(${data.image})` }}
+          style={{ backgroundImage: `url(${data.image || "/placeholder.png"})` }}
         ></div>
 
         <div className="flex flex-col gap-2 p-4 md:p-5">
@@ -24,7 +24,7 @@ export const MenuCard = ({ data }: Props) => {
           </div>
 
           <p className="text-[#e3e1e1] text-xs md:text-sm line-clamp-2 mt-1">
-            {data.ingredients}
+            {data.description || "Sem descrição disponível."}
           </p>
         </div>
       </div>
