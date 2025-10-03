@@ -2,13 +2,13 @@
 
 import { SectionTitle } from "../SectionTitle";
 import { MenuCard } from "./MenuCard";
-// Importação Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/free-mode";
 import { FreeMode } from "swiper/modules";
 
 import { Secoes } from "@/types/Secoes";
+import { useRouter } from "next/navigation";
 
 type Props = {
   secao: Secoes;
@@ -16,13 +16,11 @@ type Props = {
 
 export const MenuCategory = ({ secao }: Props) => {
 
-  const onClick = () => {
-    console.log("clicou");
-  };
+  const router = useRouter();
 
   return (
     <div className="mb-8">
-      <SectionTitle title={secao.nome} onClick={onClick} />
+      <SectionTitle title={secao.nome} onClick={() => router.push(`/categories/${secao.id}`)} />
 
       <Swiper
         slidesPerView={1.8}
