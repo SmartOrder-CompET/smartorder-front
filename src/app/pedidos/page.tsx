@@ -2,31 +2,38 @@
 
 import { Header } from "@/components/Header";
 import { Navbar } from "@/components/Navbar";
-import { PedidoCard, PedidoStatus } from "@/components/PedidoCard";
+import { PedidoCard } from "@/components/PedidoCard";
 import { useEffect, useState } from "react";
-import Link from "next/link";
+
+interface PedidoItem {
+  itemId: string;
+  amount: number;
+}
 
 interface PedidoApiItem {
   id: string;
-  numero: string;
-  itens: { nome: string; quantidade: number; detalhe?: string }[];
-  data: string;
-  valor: string;
-  status: PedidoStatus;
-  avaliacao?: number;
-  textoAvaliacao?: string;
+  customerId: string;
+  userId: string;
+  price: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string | null;
+  items?: PedidoItem[];
 }
 
 const Page = () => {
   const [pedidos, setPedidos] = useState<PedidoApiItem[]>([]);
-  // TODO: trocar pelo id do cliente autenticado
+  const [itens, setItens] = useState<any[]>([]);
   const clienteId = "bfda807b-83dc-41ec-85e2-745885e3fd19";
 
   useEffect(() => {
-    async function fetchPedidos() {
+    async function fetchPedidosEItens() {
       try {
-        const token = localStorage.getItem("token");
-        const res = await fetch(
+        const token =
+          "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3NzU5MTY3NS0zNGJlLTQyOTYtOTMwMi0xZmM4ZTk4NTE0M2IiLCJpYXQiOjE3NTk0NDI1ODV9.UFVXXZ9xyqcnQl92NvG39UW4gXo6POHDnvlGKTaTLoIwvitIWjahZMH5w4GdmsXNcsO4QaJuGE1yZz0M68Uayk6Vt0eyp5BzWEJgWBDZSJe-WJJI-R4dZ6N29met2-cTwVHrCSLOizdUcxkfdWNw20eYmI5WzrdOvfQDg3mzQucNfHIcKz3MbMl0-kudTufxp-umJyHwbprxg3OpGPoufsKIy1saG-OFKyuupqaPZsqNlcVzbCwBrzdvmBPjo_u53fRZoBcYcDNJYYudE3qO9a8v_kdj2BSWthKVtGy2OzKeecEMt0jXBcSdg8YRa-tMT_uzRtepm5xn3J8VnadacQ";
+        // Buscar pedidos
+        const resPedidos = await fetch(
           `http://localhost:3333/api/v1/orders?status=pendente`,
           {
             headers: {
@@ -34,14 +41,24 @@ const Page = () => {
             },
           }
         );
-        if (!res.ok) throw new Error("Erro ao buscar pedidos");
-        const data = await res.json();
-        setPedidos(data);
+        if (!resPedidos.ok) throw new Error("Erro ao buscar pedidos");
+        const dataPedidos = await resPedidos.json();
+        setPedidos(Array.isArray(dataPedidos.orders) ? dataPedidos.orders : []);
+
+        // Buscar itens
+        const resItens = await fetch(`http://localhost:3333/api/v1/items`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (!resItens.ok) throw new Error("Erro ao buscar itens");
+        const dataItens = await resItens.json();
+        setItens(Array.isArray(dataItens.items) ? dataItens.items : []);
       } catch (e) {
         console.error(e);
       }
     }
-    fetchPedidos();
+    fetchPedidosEItens();
   }, [clienteId]);
 
   return (
@@ -56,29 +73,45 @@ const Page = () => {
         {pedidos.length === 0 ? (
           <span className="mt-10 text-gray-400">Nenhum pedido encontrado.</span>
         ) : (
-          pedidos.map((pedido) => (
-            <PedidoCard
-              key={pedido.id}
-              numero={pedido.numero}
-              itens={pedido.itens}
-              data={pedido.data}
-              valor={pedido.valor}
-              status={pedido.status}
-              avaliacao={pedido.avaliacao}
-              textoAvaliacao={pedido.textoAvaliacao}
-              onAcompanhar={() => {
-                // Exemplo: redirecionar para acompanhamento
-                window.location.href = `/pedidos/acompanhar/${pedido.id}`;
-              }}
-              onAvaliar={() => {
-                window.location.href = `/pedidos/avaliacao?pedido=${pedido.id}`;
-              }}
-              onRepetir={() => {
-                // Exemplo: lógica para repetir pedido
-                alert("Função de repetir pedido em desenvolvimento");
-              }}
-            />
-          ))
+          pedidos.map((pedido) => {
+            // Depuração: verifique se os itens do pedido e os itens globais estão corretos
+            console.log("pedido.items:", pedido.items, "itens:", itens);
+            const pedidoItens = Array.isArray(pedido.items)
+              ? pedido.items.map((pi) => {
+                  const itemDetalhe = itens.find((i) => i.id === pi.itemId);
+                  return {
+                    nome: itemDetalhe ? itemDetalhe.name : pi.itemId,
+                    quantidade: pi.amount ?? 1,
+                    detalhe: itemDetalhe ? itemDetalhe.category : undefined,
+                  };
+                })
+              : [];
+            return (
+              <PedidoCard
+                key={pedido.id}
+                numero={pedido.id.slice(0, 8)}
+                itens={pedidoItens}
+                data={
+                  pedido.createdAt
+                    ? new Date(pedido.createdAt).toLocaleString("pt-BR")
+                    : ""
+                }
+                valor={`R$ ${pedido.price}`}
+                status={pedido.status}
+                avaliacao={0}
+                textoAvaliacao={""}
+                onAcompanhar={() => {
+                  window.location.href = `/pedidos/acompanhar/${pedido.id}`;
+                }}
+                onAvaliar={() => {
+                  window.location.href = `/pedidos/avaliacao?pedido=${pedido.id}`;
+                }}
+                onRepetir={() => {
+                  alert("Função de repetir pedido em desenvolvimento");
+                }}
+              />
+            );
+          })
         )}
       </div>
       <Navbar />
