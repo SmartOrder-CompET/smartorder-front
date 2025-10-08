@@ -14,7 +14,7 @@ const Page = () => {
       <div className="max-w-md w-full md:max-w-3xl lg:max-w-5xl mx-auto min-h-screen pb-6">
         
 
-        <div className="flex flex-col h-full items-center w-full px-4 pt-18">
+        <div className="flex flex-col h-full items-center w-full px-4">
           <Link href={"/pedidos"}>
             <div className="flex gap-2 justify-start w-screen pl-5 mt-5 text-gray-300">
               <ArrowLeft />
