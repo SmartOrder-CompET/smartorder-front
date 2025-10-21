@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/Button";
 import { formatPrice } from "@/utils/formatters";
 import { useRouter } from "next/navigation";
 import { Check } from "lucide-react";
+import Cookies from 'js-cookie';
 
 import React, { useEffect, useState } from "react";
 import { createOrder } from "@/services/orders";
@@ -47,7 +48,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
 
 
     const handleClick = async () => {
-        const CustomerToken = localStorage.getItem('token')
+        const CustomerToken = Cookies.get('accessToken')
         const CustomerId = localStorage.getItem('id')
 
         if(!CustomerId) return
@@ -58,9 +59,6 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                 amount: item.quantity
             }));
             const response = await createOrder(CustomerId as string, CustomerToken as string ,formattedItems)
-            console.log(response)
-            console.log(CustomerId)
-            console.log(formattedItems)
             setIsPaid(true)
         } catch (error: any) {
             alert("Erro no Servidor")

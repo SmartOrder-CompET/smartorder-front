@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/Button"
 import { Input } from "@/components/ui/Input"
 import Link from "next/link"
+import Cookies from 'js-cookie';
 
 // Forms dependecies
 import { useForm } from "react-hook-form"
@@ -36,8 +37,12 @@ const Page = () => {
         const response = await validarCliet(unmaskedTel)
 
         if(response){
-            //@ts-ignore
-            localStorage.setItem('token', response.data.accessToken as string)
+            Cookies.set('accessToken', response.data.acessToken, {
+                expires: 1,
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'strict',
+                path: '/',
+            });
             //@ts-ignore
             localStorage.setItem('id', response.data.user.id as string)
             router.push('/checkout')
