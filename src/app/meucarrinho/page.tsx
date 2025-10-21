@@ -10,6 +10,7 @@ import { formatPrice } from "@/utils/formatters";
 import { useRouter } from "next/navigation";
 import WhatsappIcon from "../../../public/whatsapp-icon.svg";
 import Image from "next/image";
+import Cookies from 'js-cookie';
 
 const Page = () => {
   const { state } = useCart();
@@ -34,10 +35,9 @@ const Page = () => {
   }, 0);
 
   const handleFinish = () => {
-    const token = localStorage.getItem('token')
-    const id = localStorage.getItem('id')
+    const token = Cookies.get('accessToken')
 
-    if(!token || !id){
+    if(!token){
       router.push('/login')
     } else{
       router.push('/checkout')
@@ -104,6 +104,7 @@ const Page = () => {
               label="Finalizar "
               onClick={handleFinish}
             />
+            
             <div className="flex flex-row gap-2 py-2 px-2 justify-evenly rounded-full  border bg-[#181717] border-[#35F300]">
               <button
                 className=" text-center font-bold "

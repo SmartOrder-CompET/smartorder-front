@@ -13,6 +13,7 @@
     "@mercadopago/sdk-react": "^1.0.4",
     "@tanstack/react-query": "^5.87.1",
     "axios": "^1.11.0",
+    "js-cookie": "^3.0.5",
     "lucide": "^0.536.0",
     "lucide-react": "^0.536.0",
     "mercadopago": "^2.8.0",
@@ -28,6 +29,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
