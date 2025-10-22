@@ -2,7 +2,6 @@
 import { Product } from "@/types/Product";
 import { formatPrice } from "@/utils/formatters";
 import Link from "next/link";
-import { useEffect } from "react";
 
 type Props = {
   data: Product;

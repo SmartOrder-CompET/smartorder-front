@@ -14,13 +14,10 @@ import "swiper/css/free-mode";
 import { FreeMode } from "swiper/modules";
 
 export const CategoryProducts = () => {
-  const onClick = () => {
-    console.log("clicou");
-  };
 
   return (
     <div className="w-full">
-      <SectionTitle title="Selecione a categoria" onClick={onClick} />
+      <SectionTitle title="Selecione a categoria" href="/categories" />
 
       <Swiper
         slidesPerView="auto"

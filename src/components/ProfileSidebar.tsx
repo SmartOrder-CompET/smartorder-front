@@ -31,7 +31,7 @@ export function ProfileSidebar({ open, onClose }: ProfileSidebarProps) {
           flex flex-col justify-between overflow-y-auto`}
       >
         {/* Conteúdo scrollável */}
-        <div className="p-4 flex flex-col gap-2 pb-48">
+        <div className="p-4 flex flex-col gap-2 pb-10">
           <button className="text-white text-xl ml-auto" onClick={onClose}>
             X
           </button>

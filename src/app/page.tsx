@@ -4,8 +4,12 @@ import "./globals.css";
 import { CategoryProducts } from "../components/category/CategoryProducts";
 import { MenuArea } from "../components/menu/MenuArea";
 import { MapPin, Search } from "lucide-react";
+import { useState } from "react";
 
 const Page = () => {
+
+  const [searchTerm, setSearchTerm] = useState("")
+
   return (
     <div className="max-w-md md:max-w-3xl lg:max-w-5xl mx-auto text-white min-h-screen">
       {/* Endereço */}
@@ -47,6 +51,8 @@ const Page = () => {
           <input
             type="text"
             placeholder="Pesquisar"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             className="bg-transparent border-none outline-none w-full text-white placeholder:text-white ml-2 text-sm"
           />
         </div>
@@ -59,7 +65,7 @@ const Page = () => {
 
       {/* Menu de produtos */}
       <div className="mt-4 px-4 md:px-8 pb-20">
-        <MenuArea />
+        <MenuArea searchTerm={searchTerm}/>
       </div>
     </div>
   );
