@@ -1,7 +1,5 @@
 "use client";
 
-import { categories } from "@/data/category";
-import { MenuArea } from "@/components/menu/MenuArea";
 import { useState } from "react";
 import { Search } from "lucide-react";
 import { getCardapio } from "@/services/cardapio";
